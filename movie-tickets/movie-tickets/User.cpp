@@ -11,21 +11,21 @@ void userRegister() {
 	string password;
 
 
-	cout<< "=== Регистрация ===\n";
-	cout << "Въведете потребителско име: ";
+	cout<< "=== Registration ===\n";
+	cout << "Enter username: ";
 	cin >> username;
 
 	if (users.find(username) != users.end()) {
-		cout << "Грешка: потребителското име вече съществува!\n";
+		cout << "Error: username already exists!\n";
 		system("pause");
 		return;
 	}
 
-	cout << "Въведете парола: ";
+	cout << "Enter password: ";
 	cin >> password;
 	users[username] = password;
 
-	cout << "Успешна регистрация!\n";
+	cout << "Successful registration!\n";
 	system("pause");
 }
 
@@ -33,17 +33,17 @@ void userLogin() {
 	string username;
 	string password;
 
-	cout << "=== Вход ===\n";
-	cout << "Потребителско име: ";
+	cout << "=== Login ===\n";
+	cout << "Enter username: ";
 	cin >> username;
-	cout << "Парола: ";
+	cout << "Enter password: ";
 	cin >> password;
 
 	if (users.find(username) != users.end() && users[username] == password) {
-		cout << "Успешен вход" << endl;
+		cout << "Login successful" << endl;
 	}
 	else{
-		cout << "Грешно име и парола" << endl;
+		cout << "Wrong username or password" << endl;
 	}
 
 	system("pause");

@@ -10,11 +10,11 @@ void showMainMenu() {
 	do {
 
 		system("cls");
-		cout << "==== Главно Меню ====\n";
-		cout << "1. Вход като Админ\n";
-		cout << "2. Вход като Потребител\n";
-		cout << "3. Изход\n";
-		cout << "Изберете опция:";
+		cout << "==== Main Menu ====\n";
+		cout << "1. Login as Admin\n";
+		cout << "2. Login as User\n";
+		cout << "3. Exit\n";
+		cout << "Select an option: ";
 
 		cin >> choice;
 
@@ -23,7 +23,7 @@ void showMainMenu() {
 		case 1: showAdminLogin(); break;
 		case 2: showUserMenu(); break;
 		case 3: exit(0);
-		default: cout << "Невалиден избор" << endl; break;
+		default: cout << "Invalid selection" << endl; break;
 		}
 
 
@@ -36,17 +36,17 @@ void showAdminLogin() {
 	string username;
 	string password;
 
-	cout << "=== Вход за Админ===\n";
-	cout << "Username: ";
+	cout << "=== Login for Admin ===\n";
+	cout << "Enter username: ";
 	cin >> username;
-	cout << "Password: ";
+	cout << "Enter password: ";
 	cin >> password;
 
 	if (adminLogin(username,password)) {
-		cout << "Успешен вход" << endl;
+		cout << "Login successful" << endl;
 	}
 	else {
-		cout << "Грешно име или парола!" << endl;
+		cout << "Wrong username or password!" << endl;
 	}
 	system("pause");
 }
@@ -55,20 +55,22 @@ void showUserMenu() {
 	int choice;
 	do {
 		system("cls");
-		cout << "==== Потребителско Меню ====\n";
-		cout << "1. Вход\n";
-		cout << "2. Регистрация\n";
-		cout << "3. Назан\n";
-		cout << "Изберете опция:";
+		cout << "==== User Menu ====\n";
+		cout << "1. Login\n";
+		cout << "2. Register\n";
+		cout << "3. Back\n";
+		cout << "Select an option: ";
 
 		cin >> choice;
+
+		system("cls");
 
 		switch (choice)
 		{
 		case 1: userLogin(); break;
 		case 2: userRegister(); break;
 		case 3: return;
-		default: cout << "Невалиден избор" << endl; break;
+		default: cout << "Invalid selection" << endl; break;
 		}
 
 
