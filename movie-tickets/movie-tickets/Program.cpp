@@ -43,13 +43,8 @@ void hideCursor() {
 void displayMenu(const vector<string>& options, int selected, const vector<string>& fileContent) {
 	system("cls");
 
-	cout << "===========================" << endl;
-
 	for (const string& line : fileContent) {
-		cout << "| " << line;
-		for (int i = line.length(); i < 25; i++) {
-			cout << "|" << endl;
-		}
+		cout << line << endl;
 	}
 	cout << "===========================" << endl;
 
@@ -61,7 +56,7 @@ void displayMenu(const vector<string>& options, int selected, const vector<strin
 			for (int j = options[i].length(); j < 23; j++) cout << " ";
 		}
 		else {
-			cout << "  " << options[i];
+			cout << " " << options[i];
 			for (int j = options[i].length(); j < 23; j++) cout << " ";
 		}
 		cout << "|" << endl;
