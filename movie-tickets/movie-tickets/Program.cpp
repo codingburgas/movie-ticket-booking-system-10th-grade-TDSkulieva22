@@ -7,11 +7,39 @@
 #include "User.h"
 #include "Admin.h"
 #include "Menu.h"
+#include "json.hpp"
+using json = nlohmann::json;
+
 using namespace std;
 
 void gotoxy(int x, int y) {
 	COORD coord = { static_cast<SHORT>(x),static_cast<SHORT>(y) };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+
+json readUsersFromJson(const string& filename) {
+	ifstream file(filename);
+	json j;
+	if (file.is_open()) {
+		file >> j;
+		file.close();
+
+
+	}
+	else {
+		j = { {"users", json::array()} };
+	}
+	return j;
+}
+
+bool autehnticate(const json& users, const string& username, const string& password) {
+	for (const auto& user : users["users"]) {
+		if (user["username"] == username && user["password"] == password) {
+			return true;
+		}
+	}
+	return false;
 }
 
 
@@ -65,6 +93,10 @@ void displayMenu(const vector<string>& options, int selected, const vector<strin
 	cout << "===========================" << endl;
 }
 
+
+
+
+
 int main()
 {
 	//showMainMenu();
@@ -73,6 +105,8 @@ int main()
 	int selected = 0;
 	bool running = true;
 	hideCursor();
+
+	json users = readUsersFromJson("users.json");
 
 	while (running) {
 
@@ -99,9 +133,9 @@ int main()
 				string username, password;
 				cout << "=== Admin ===\n";
 				cout << "Enter admin username: ";
-				cin >> username;
+				std::cin >> username;
 				cout << "Enter admin password: ";
-				cin >> password;
+				std::cin >> password;
 				if (adminLogin(username, password)) {
 					cout << "Admin login successful!" << endl;
 					//admin functionalities here
@@ -133,17 +167,31 @@ int main()
 					else if (userKey == 13) {
 						system("cls");
 						if (userSelected == 0) { 
-							userLogin();
+							if (userLogin(users)) {
+								cout << "Login successful!\n";
+							}
+							else {
+								cout << "Failed to login!\n";
+							}
 						}
 						else if (userSelected == 1) { 
-							userRegister();
+							int result = userRegister(users);
+							if (result == 1) {
+								cout << "Registration successful!\n";
+							}
+							else if (result == 0) {
+								cout << "Registration failed: Username already exists.\n";
+							}
+							else if (result == -1) {
+								cout << "Registration failed: Could not save the user data.\n";
+							}
 						}
 						userRunning = false; 
 					}
 				}
 			}
 			cout << "\nPress enter to continue...";
-			cin.get();
+			std::cin.get();
 		}
 
 	}

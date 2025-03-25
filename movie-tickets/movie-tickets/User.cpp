@@ -1,12 +1,14 @@
 #include "User.h"
 #include <iostream>
-#include <map>
-
+#include <fstream>
+#include "json.hpp"
+#include "Program.h"
+using json = nlohmann::json;
 using namespace std;
 
-map<string, string> users;
 
-void userRegister() {
+
+int  userRegister(json& users) {
 	string username;
 	string password;
 
@@ -15,21 +17,49 @@ void userRegister() {
 	cout << "Enter username: ";
 	cin >> username;
 
-	if (users.find(username) != users.end()) {
-		cout << "Error: username already exists!\n";
-		system("pause");
-		return;
+	//if (users.find(username) != users.end()) {
+	//	cout << "Error: username already exists!\n";
+	//	system("pause");
+	//	return;
+	//}
+
+	//cout << "Enter password: ";
+	//cin >> password;
+	//users[username] = password;
+	//
+	//cout << "Successful registration!\n";
+	//system("pause");
+
+	for (const auto& user : users["users"]) {
+		if (user["username"] == username) {
+			cout << "Error: username already exists!\n";
+			return 0;
+		}
 	}
 
 	cout << "Enter password: ";
 	cin >> password;
-	users[username] = password;
 
-	cout << "Successful registration!\n";
+	json newUser = { {"username", username}, {"password", password} };
+	users["users"].push_back(newUser);
+
+	ofstream outFile("users.json");
+	if (outFile.is_open()) {
+		outFile << users.dump(4);  
+		outFile.close();
+		cout << "Successful registration!\n";
+		return 1;  
+	}
+	else {
+		cout << "Error saving user data.\n";
+		return -1;  
+	}
+
+
 	system("pause");
 }
 
-void userLogin() {
+bool userLogin(const json& users) {
 	string username;
 	string password;
 
@@ -39,12 +69,7 @@ void userLogin() {
 	cout << "Enter password: ";
 	cin >> password;
 
-	if (users.find(username) != users.end() && users[username] == password) {
-		cout << "Login successful" << endl;
-	}
-	else{
-		cout << "Wrong username or password" << endl;
-	}
+	return autehnticate(users, username, password);
 
 	system("pause");
 }
