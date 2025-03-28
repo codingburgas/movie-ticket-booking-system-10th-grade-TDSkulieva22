@@ -47,19 +47,6 @@ int  userRegister(json& users) {
 	cout << "Enter username: ";
 	cin >> username;
 
-	//if (users.find(username) != users.end()) {
-	//	cout << "Error: username already exists!\n";
-	//	system("pause");
-	//	return;
-	//}
-
-	//cout << "Enter password: ";
-	//cin >> password;
-	//users[username] = password;
-	//
-	//cout << "Successful registration!\n";
-	//system("pause");
-
 	for (const auto& user : users["users"]) {
 		if (user["username"] == username) {
 			cout << "Error: username already exists!\n";
