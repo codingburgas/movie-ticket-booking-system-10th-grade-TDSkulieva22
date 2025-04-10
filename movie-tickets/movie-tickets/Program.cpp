@@ -33,16 +33,6 @@ json readUsersFromJson(const string& filename) {
 	return j;
 }
 
-bool autehnticate(const json& users, const string& username, const string& password) {
-	for (const auto& user : users["users"]) {
-		if (user["username"] == username && user["password"] == password) {
-			return true;
-		}
-	}
-	return false;
-}
-
-
 vector<string> readEntireFile(const string& filename) {
 	vector<string> lines;
 	ifstream file(filename);
