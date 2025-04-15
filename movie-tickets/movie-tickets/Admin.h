@@ -1,14 +1,8 @@
-#include <string>
-#include <iostream>
-#ifndef ADMIN_H
-#define ADMIN_H
-
-using namespace std;
+#pragma once
+#include "pch.h"
 
 bool adminLogin(string username,string password);
 
-
-#endif // !ADMIN_H
 
 
 

@@ -1,7 +1,8 @@
-#ifndef MENU_H
-#define MENU_H
+#pragma once
+#include "pch.h"
 
-void showMainMenu();
+void printCentered(const string& text, int y);
+void newLine(int newLines);
+void hideCursor();
 
-#endif // !MENU_H
 

@@ -1,9 +1,6 @@
 #include "Validation.h"
 #include "Admin.h"
 #include "Menu.h"
-#include <conio.h>
-#include "json.hpp"
-using json = nlohmann::json;
 
 bool autehnticate(const json& users, const string& username, const string& password) {  //Authenticate a user based on the provided username and password
 	for (const auto& user : users["users"]) {
@@ -65,4 +62,25 @@ string getHiddenPassword() {
 	}
 	cout << endl;
 	return password;
+}
+
+bool isAdmin() {
+	string username;
+	int attempts = 0;
+
+	while (attempts < 3) {
+		cout << "Enter admin username: ";
+		cin >> username;
+		cout << "Enter admin password: ";
+		string password = getHiddenPassword();
+
+		if (adminLogin(username, password)) {
+			return true;
+		}
+		else {
+			attempts++;
+			cout << "Incorrect username or password!" << endl;
+		}
+	}
+	return false;
 }

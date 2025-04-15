@@ -1,13 +1,11 @@
-#ifndef USER_H
-#define USER_H
+#pragma once
+#include "pch.h"
 
-#include "json.hpp"
 using json = nlohmann::json;
 
 bool userLogin(const json& users);
 int userRegister(json& users);
+json readUsersFromJson(const string& filename);
 
-
-#endif // !USER_H
 
 

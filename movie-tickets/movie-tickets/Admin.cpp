@@ -1,8 +1,4 @@
 #include "Admin.h"
-#include <iostream>
-#include <string>
-
-using namespace std;
 
 bool adminLogin(string username,string password) {
 	 string Admin_User = "admin";
