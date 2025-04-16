@@ -2,6 +2,11 @@
 #include "Program.h"
 #include "Validation.h"
 
+json users;  //Global json object to store user data
+void initUsers() {
+	users = readUsersFromJson("users.json");
+}
+
 json readUsersFromJson(const string& filename) {
 	ifstream file(filename);
 	json j;
@@ -36,7 +41,7 @@ int  userRegister(json& users) {
 	bool validPassword = false;
 	while (!validPassword) {
 		cout << "Enter password: ";
-		cin >> password;
+		password = getHiddenPassword();
 
 		validPassword = isValidPassword(password);
 	}
@@ -68,7 +73,7 @@ bool userLogin(const json& users) {
 	cout << "Enter username: ";
 	cin >> username;
 	cout << "Enter password: ";
-	cin >> password;
+	password = getHiddenPassword();
 
 	return autehnticate(users, username, password);
 

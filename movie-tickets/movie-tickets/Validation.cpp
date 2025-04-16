@@ -66,13 +66,14 @@ string getHiddenPassword() {
 
 bool isAdmin() {
 	string username;
+	string password;
 	int attempts = 0;
 
 	while (attempts < 3) {
 		cout << "Enter admin username: ";
 		cin >> username;
 		cout << "Enter admin password: ";
-		string password = getHiddenPassword();
+		password = getHiddenPassword();
 
 		if (adminLogin(username, password)) {
 			return true;
