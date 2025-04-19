@@ -1,6 +1,7 @@
 #include "User.h"
 #include "Program.h"
 #include "Validation.h"
+#include "Menu.h"
 
 json users;  //Global json object to store user data
 void initUsers() {
@@ -78,4 +79,57 @@ bool userLogin(const json& users) {
 	return autehnticate(users, username, password);
 
 	system("pause");
+}
+
+void userMainMenu()
+{
+	int menuSelected = 0;
+	bool menuRunning = true;
+
+	vector<string> userOptions = {
+		"View our program",
+		"Select a seat",
+		"Cancel reservation",
+		"Your tickets",
+		"See offers"
+	};
+
+	while (menuRunning) {
+		system("cls");
+		newLine(1);
+		options(userOptions, menuSelected, 6);
+
+		char key = _getch();
+
+		if (key == 72) { //Up
+			menuSelected = (menuSelected == 0) ? userOptions.size() - 1 : menuSelected - 1;
+		}
+		else if (key == 80) { //Down
+			menuSelected = (menuSelected == userOptions.size() - 1) ? 0 : menuSelected + 1;
+		}
+		else if (key == 13) { //Enter
+			system("cls");
+
+			switch (menuSelected) {
+			case 0:
+				cout << "Showing program...\n";
+				break;
+			case 1:
+				cout << "Seat selection...\n";
+				break;
+			case 2:
+				cout << "Cancelling reservation...\n";
+				break;
+			case 3:
+				cout << "Displaying your tickets...\n";
+				break;
+			case 4:
+				cout << "Showing current offers...\n";
+				menuRunning = false;
+				break;
+			}
+
+			system("pause");
+		}
+	}
 }

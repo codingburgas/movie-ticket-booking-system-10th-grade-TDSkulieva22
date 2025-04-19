@@ -7,6 +7,7 @@ void initUsers();
 
 bool userLogin(const json& users);
 int userRegister(json& users);
+void userMainMenu();
 json readUsersFromJson(const string& filename);
 
 

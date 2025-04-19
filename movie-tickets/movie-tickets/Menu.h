@@ -6,5 +6,5 @@ void displayMenu(int selected);
 void printCentered(const string& text, int y);
 void newLine(int newLines);
 void hideCursor();
-void options(string option1, string option2, int selected, int y1, int y2);
+void options(const vector<string>& optionsList, int selected, int startY);
 
