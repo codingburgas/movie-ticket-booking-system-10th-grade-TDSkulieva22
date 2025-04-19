@@ -34,12 +34,17 @@ void options(const vector<string>& optionsList, int selected, int startY)
         string content;
         string border = "......................";
 
-        if (i == selected)
-            content = " > " + optionsList[i] + " <  ";
-        else
-            content = "   " + optionsList[i] + "    ";
-
         int y = startY + i * 4;
+
+        bool isSelected = (i == selected);
+        content = (isSelected ? " > " : "   ") + optionsList[i] + (isSelected ? " < " : "    ");
+
+        if (isSelected) {
+            setColor(LIGHT_RED, BLACK); //Highlighted
+        }
+        else {
+            setColor(BRIGHT_WHITE, BLACK);
+        }
 
         printCentered(border, y);
         printCentered(content, y + 1);

@@ -20,3 +20,6 @@ enum ConsoleColor {
 	BRIGHT_WHITE = 15
 };
 
+void setColor(ConsoleColor text, ConsoleColor background = BLACK);
+
+void resetColor();
