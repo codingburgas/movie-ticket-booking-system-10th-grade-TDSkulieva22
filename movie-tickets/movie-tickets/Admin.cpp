@@ -1,5 +1,6 @@
 #include "Admin.h"
 #include "Menu.h"
+#include "DrawText.h"
 
 bool adminLogin(string username,string password) {
 	 string Admin_User = "admin";
@@ -12,6 +13,8 @@ bool adminLogin(string username,string password) {
 void adminMenu() {
     int selected = 0;
     bool adminRunning = true;
+    
+    cinemaCity();
 
     vector<string> userOptions = {
         "Add movie",

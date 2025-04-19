@@ -3,6 +3,7 @@
 #include "User.h"
 #include "Validation.h"
 #include "Colors.h"
+#include "DrawText.h"
 
 void hideCursor() {
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -34,7 +35,7 @@ void options(const vector<string>& optionsList, int selected, int startY)
         string content;
         string border = "......................";
 
-        int y = startY + i * 4;
+        int y = startY + 6 + i * 4;
 
         bool isSelected = (i == selected);
         content = (isSelected ? " > " : "   ") + optionsList[i] + (isSelected ? " < " : "    ");
@@ -56,9 +57,9 @@ void options(const vector<string>& optionsList, int selected, int startY)
 void displayMenu(int selected) {
     system("cls");
 
-    //titleCinema();
+    cinemaCity();
 
-    newLine(2);
+    newLine(1);
 
     vector<string> userOptions = {
         "START",
@@ -71,7 +72,9 @@ void displayMenu(int selected) {
 void displayRoleMenu(int selected) {
     system("cls");
 
-    newLine(1);
+    cinemaCity();
+
+    newLine(3);
 
     vector<string> userOptions = {
         "ADMIN",
@@ -83,6 +86,8 @@ void displayRoleMenu(int selected) {
 
 void displayUserOptions(int selected) {
     system("cls");
+
+    cinemaCity();
 
     newLine(1);
 

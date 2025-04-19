@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Colors.cpp" />
+    <ClCompile Include="DrawText.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="User.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Colors.h" />
+    <ClInclude Include="DrawText.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Program.h" />
