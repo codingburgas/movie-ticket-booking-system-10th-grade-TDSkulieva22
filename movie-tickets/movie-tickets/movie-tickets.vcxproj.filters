@@ -36,6 +36,9 @@
     <ClCompile Include="DrawText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Movies.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menu.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DrawText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Movies.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

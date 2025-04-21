@@ -131,6 +131,7 @@
     <ClCompile Include="Colors.cpp" />
     <ClCompile Include="DrawText.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Movies.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="Validation.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Colors.h" />
     <ClInclude Include="DrawText.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Movies.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="User.h" />
