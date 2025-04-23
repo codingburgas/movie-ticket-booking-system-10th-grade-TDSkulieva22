@@ -241,11 +241,11 @@ void editMovie(Movie* head, string& filename) {
 		cout << "Empty list!" << endl;
 	}
 
-	cout << "Pick riddle to edit:" << endl;
+	cout << "Pick film to edit:" << endl;
 	int count = 1;
 	Movie* current = head;
 	vector<Movie*> moviesList;
-	// Traverse the list to display available riddles
+	// Traverse the list to display available films
 	while (current != nullptr) {
 		cout << count << ". " << current->TITLE << endl;
 		moviesList.push_back(current);
@@ -254,14 +254,62 @@ void editMovie(Movie* head, string& filename) {
 	}
 
 	int choice;
-	cout << "Enter the number of the riddle: ";
+	cout << "Enter the number of the film: ";
 	cin >> choice;
 
 	if (choice < 1 || choice > moviesList.size()) {
 		cout << "Incorrect choice!" << endl;
 	}
-	// Get the riddle to edit
+	// Get the film to edit
 	Movie* toEdit = moviesList[choice - 1];
 
-	cout << "Edit the riddle details" << endl;
+	cout << "Edit the movie details" << endl;
+
+	//Edit the film title
+	cout << "Current title: " << toEdit->TITLE << endl;
+	cout << "Enter new title: ";
+	string newTitle;
+	cin.ignore();
+	getline(cin, newTitle);
+	if (!newTitle.empty()) {
+		toEdit->TITLE = newTitle;
+	}
+
+	//Genre
+	//Genre
+	//Genre
+
+	//Edit the film duration
+	cout << "Current duration: " << toEdit->DURATION << endl;
+	cout << "Enter new duration: ";
+	int newDuration;
+	cin.ignore();
+	cin >> newDuration;
+	//if (!newDuration.empty()) {
+		toEdit->DURATION = newDuration;
+	//}
+
+	//Story
+    //Story
+	//Story
+
+	//Edit the film category
+    cout << "Current category: " << toEdit->CATEGORY << endl;
+	cout << "Enter new category: ";
+	string newCategory;
+	cin.ignore();
+	getline(cin, newCategory);
+	if (!newCategory.empty()) {
+		toEdit->CATEGORY = newCategory;
+	}
+
+	//Edit the film language
+	cout << "Current language: " << toEdit->LANGUAGE << endl;
+	cout << "Enter new language: ";
+	string newLanguage;
+	cin.ignore();
+	getline(cin, newLanguage);
+	if (!newLanguage.empty()) {
+		toEdit->LANGUAGE = newLanguage;
+	}
 }
