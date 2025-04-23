@@ -2,6 +2,7 @@
 #include "Admin.h"
 #include "Menu.h"
 #include "DrawText.h"
+#include "Movies.h"
 
 bool adminLogin(string username,string password) {
 	 string Admin_User = "admin";
@@ -44,7 +45,7 @@ void adminMenu() {
 
             switch (selected) {
             case 0:
-                cout << "Add movie...\n";
+                //addMovie();
                 break;
             case 1:
                 cout << "Update a show...\n";
