@@ -27,6 +27,43 @@ bool openFile(ifstream& file, const string& filename) {
 	return true;
 }
 
+Movie* loadMoviesFromFile(string& filename) {
+	Movie* head = nullptr;
+	ifstream file;
+	if (!openFile(file, filename)) {
+		return nullptr;
+	}
+
+	// JSON object that will contain the data from the file
+	json j;
+	file >> j;
+	srand(time(nullptr));
+	int randomIndex = rand() % j.size();
+	json selectedMovie = j[randomIndex];
+	file.close();
+
+	// (range-based loop) to iterate over all elements in the JSON object
+	for (const auto& item : j) {
+		Movie* newMovie = new Movie;
+		newMovie->TITLE = item["TITLE"];
+		newMovie->GENRE = item["GENRE"];
+		newMovie->DURATION = item["DURATION"];
+		newMovie->STORY = item["STORY"];
+		newMovie->CATEGORY = item["CATEGORY"];
+		newMovie->LANGUAGE = item["LANGUAGE"];
+		newMovie->ACTORS = item["ACTORS"];
+		newMovie->DIRECTOR = item["DIRECTOR"];
+		newMovie->WHERE = item["WHERE"];
+		//newMovie->DATE = item["DATE"];
+		newMovie->ROOM = item["ROOM"];
+		//newMovie->TIME = item["TIME"];
+
+		newMovie->next = head;
+		head = newMovie;
+	}
+	return head;
+}
+
 void addMovie(Movie* head, string& filename) {
 	cinemaCity();
 	Movie* newMovie = new Movie;

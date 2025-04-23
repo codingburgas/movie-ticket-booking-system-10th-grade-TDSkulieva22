@@ -19,7 +19,8 @@ struct Movie {
 	// Pointer to the next riddle
 	Movie* next;
 };
-//Movie* loadMoviesFromFile(string& filename);
+
+Movie* loadMoviesFromFile(string& filename);
 //void saveMoviesToFile(Movie* head, string& filename);
 
 void addMovie(Movie* head, string& filename);

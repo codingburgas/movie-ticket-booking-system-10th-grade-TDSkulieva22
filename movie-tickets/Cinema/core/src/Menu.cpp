@@ -117,7 +117,6 @@ void menu() {
         case 13:
             if (selected == 0) {
                 system("cls");
-                printCentered("Game Starting...", 10);
                 running = false;  //Exit the main menu
 
                 system("cls");
