@@ -312,4 +312,56 @@ void editMovie(Movie* head, string& filename) {
 	if (!newLanguage.empty()) {
 		toEdit->LANGUAGE = newLanguage;
 	}
+
+	// Edit the actors
+	cout << "Current actor: " << endl;
+	for (size_t i = 0; i < toEdit->ACTORS.size(); ++i) {
+		cout << i + 1 << ". " << toEdit->ACTORS[i] << endl;
+	}
+
+	cout << "Enter the number of the actor you want to edit: ";
+	int actorChoice;
+	cin >> actorChoice;
+	cin.ignore();
+
+	// Edit the selected actor
+	if (actorChoice > 0 && actorChoice <= toEdit->ACTORS.size()) {
+		cout << "Enter new actor: ";
+		string newActor;
+		getline(cin, newActor);
+		// Replace the old actor name with the new one
+		toEdit->ACTORS[actorChoice - 1] = newActor;
+	}
+
+	//Edit the director name
+	cout << "Current director: " << toEdit->DIRECTOR << endl;
+	cout << "Enter new director: ";
+	string newDirector;
+	cin.ignore();
+	getline(cin, newDirector);
+	if (!newDirector.empty()) {
+		toEdit->DIRECTOR = newDirector;
+	}
+
+	//WHERE here
+	//WHERE here
+	//WHERE here
+
+	//DATE here
+	//Date here
+	//Date here
+
+	cout << "Current room: " << toEdit->ROOM << endl;
+	cout << "Enter new room: ";
+	string newRoom;
+	cin.ignore();
+	getline(cin, newRoom);
+	if (!newRoom.empty()) {
+		toEdit->ROOM = newRoom;
+	}
+
+	//TIME here
+	//TIME here
+	//TIME here
+
 }
