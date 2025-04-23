@@ -24,3 +24,4 @@ Movie* loadMoviesFromFile(string& filename);
 //void saveMoviesToFile(Movie* head, string& filename);
 
 void addMovie(Movie* head, string& filename);
+void editMovie(Movie* head, string& filename);

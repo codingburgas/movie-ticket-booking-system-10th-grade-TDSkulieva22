@@ -45,10 +45,12 @@ void adminMenu() {
 
             switch (selected) {
             case 0:
-                //addMovie();
+                system("cls");
+                //addMovie(moviesHead, filename);
                 break;
             case 1:
-                cout << "Update a show...\n";
+                system("cls");
+                //editMovie(moviesHead, filename);
                 break;
             case 2:
                 cout << "Delete movie...\n";

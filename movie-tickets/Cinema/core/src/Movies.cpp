@@ -233,3 +233,35 @@ void addMovie(Movie* head, string& filename) {
 	// Save the riddle into the json file
 	//saveRiddlesToFile(head, filename);
 }
+
+void editMovie(Movie* head, string& filename) {
+	cinemaCity();
+
+	if (head == nullptr) {
+		cout << "Empty list!" << endl;
+	}
+
+	cout << "Pick riddle to edit:" << endl;
+	int count = 1;
+	Movie* current = head;
+	vector<Movie*> moviesList;
+	// Traverse the list to display available riddles
+	while (current != nullptr) {
+		cout << count << ". " << current->TITLE << endl;
+		moviesList.push_back(current);
+		current = current->next;
+		count++;
+	}
+
+	int choice;
+	cout << "Enter the number of the riddle: ";
+	cin >> choice;
+
+	if (choice < 1 || choice > moviesList.size()) {
+		cout << "Incorrect choice!" << endl;
+	}
+	// Get the riddle to edit
+	Movie* toEdit = moviesList[choice - 1];
+
+	cout << "Edit the riddle details" << endl;
+}
