@@ -5,6 +5,7 @@
 #include "Validation.h"
 #include "Colors.h"
 #include "DrawText.h"
+#include "Movies.h"
 
 void hideCursor() {
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -101,6 +102,7 @@ void displayUserOptions(int selected) {
 }
 
 void menu() {
+    Movie* moviesHead = nullptr;
     int selected = 0;
     bool running = true;
     while (running) {
@@ -141,7 +143,7 @@ void menu() {
                             system("cls");
                             if (isAdmin()) {
                                 cout << "Admin login successful!" << endl;
-                                adminMenu();
+                                adminMenu(moviesHead);
                                 running = true;  //Go back to the main menu
                             }
                             else {

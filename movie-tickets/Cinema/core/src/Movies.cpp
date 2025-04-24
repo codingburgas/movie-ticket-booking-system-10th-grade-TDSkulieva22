@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "Colors.h"
 #include "DrawText.h"
+#include "Filters.h"
 
 string toLower(const string& input) {
 	string result = input;
@@ -64,7 +65,47 @@ Movie* loadMoviesFromFile(string& filename) {
 	return head;
 }
 
-void addMovie(Movie* head, string& filename) {
+
+
+void saveMoviesToFile(Movie* head) {
+	string filename = selectedTown();
+
+	ofstream file(filename);
+	if (!file) {
+		cout << "Failed to open file: " << filename << endl;
+		return;
+	}
+
+	json moviesJson = json::array();
+	Movie* current = head;
+
+	while (current) {
+		// Add each riddle as a JSON object to the array
+		moviesJson.push_back({
+			{"TITLE", current->TITLE},
+			{"GENRE", current->GENRE},
+			{"DURATION", current->DURATION},
+			{"STORY", current->STORY},
+			{"CATEGORY", current->CATEGORY},
+			{"LANGUAGE", current->LANGUAGE},
+			{"ACTORS", current->ACTORS},
+			{"DIRECTOR", current->DIRECTOR},
+			{"WHERE", current->WHERE},
+			//{"DATE", current->DATE},
+			{"ROOM", current->ROOM},
+			//{"TIME", current->TIME}
+			});
+		current = current->next;
+	}
+
+	// Write the JSON data to the file, indented by 4 spaces for better formatting
+	file << moviesJson.dump(4);
+	file.close();
+	cout << "The new movie was added";
+}
+
+
+void addMovie(Movie* head) {
 	cinemaCity();
 	Movie* newMovie = new Movie;
 	cin.ignore();
@@ -227,11 +268,11 @@ void addMovie(Movie* head, string& filename) {
 	}
 
 	cout << "Successful added!" << endl;
-	// Change the pointer of the new riddle to point to the current first element
+
 	newMovie->next = head;
 	head = newMovie;
-	// Save the riddle into the json file
-	//saveRiddlesToFile(head, filename);
+	
+	saveMoviesToFile(head);
 }
 
 void editMovie(Movie* head, string& filename) {

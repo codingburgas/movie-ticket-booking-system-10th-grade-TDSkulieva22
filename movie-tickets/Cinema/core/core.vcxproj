@@ -145,6 +145,7 @@
     <ClInclude Include="include\Color.h" />
     <ClInclude Include="include\Colors.h" />
     <ClInclude Include="include\DrawText.h" />
+    <ClInclude Include="include\Filters.h" />
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\Movies.h" />
     <ClInclude Include="include\pch.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="src\Admin.cpp" />
     <ClCompile Include="src\Colors.cpp" />
     <ClCompile Include="src\DrawText.cpp" />
+    <ClCompile Include="src\Filters.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Movies.cpp" />
     <ClCompile Include="src\pch.cpp">

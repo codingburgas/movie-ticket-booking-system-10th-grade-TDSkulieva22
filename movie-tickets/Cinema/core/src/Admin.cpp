@@ -12,7 +12,7 @@ bool adminLogin(string username,string password) {
 
 }
 
-void adminMenu() {
+void adminMenu(Movie*& moviesHead) {
     int selected = 0;
     bool adminRunning = true;
     
@@ -46,7 +46,7 @@ void adminMenu() {
             switch (selected) {
             case 0:
                 system("cls");
-                //addMovie(moviesHead, filename);
+                addMovie(moviesHead);
                 break;
             case 1:
                 system("cls");

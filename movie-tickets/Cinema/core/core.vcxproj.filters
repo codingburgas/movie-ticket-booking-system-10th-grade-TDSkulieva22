@@ -48,6 +48,9 @@
     <ClInclude Include="include\Validation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Filters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Admin.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Filters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
