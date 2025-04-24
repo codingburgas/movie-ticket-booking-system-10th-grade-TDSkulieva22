@@ -56,10 +56,17 @@ void adminMenu(Movie*& moviesHead) {
                     addMovie(townMovies, filename);
                     break;
                 }
-            case 1:
+            case 1: {
                 system("cls");
-                //editMovie(moviesHead, filename);
+                cinemaCity();
+                newLine(3);
+
+                string filename = selectedTown();
+                Movie* townMovies = loadMoviesFromFile(filename);
+
+                editMovie(moviesHead, filename);
                 break;
+            }
             case 2:
                 cout << "Delete movie...\n";
                 break;

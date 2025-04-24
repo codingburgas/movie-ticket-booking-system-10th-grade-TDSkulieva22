@@ -273,9 +273,7 @@ void addMovie(Movie*& head, const string& filename) {
 }
 
 void editMovie(Movie* head, string& filename) {
-	cinemaCity();
-
-	if (head == nullptr) {
+    if (head == nullptr) {
 		cout << "Empty list!" << endl;
 	}
 
@@ -402,4 +400,31 @@ void editMovie(Movie* head, string& filename) {
 	//TIME here
 	//TIME here
 
+
+	ofstream file(filename);
+	json j;
+	current = head;
+	while (current != nullptr) {
+		json filename;
+		
+		filename["TITLE"] = current->TITLE;
+		filename["GENRE"] = current->GENRE;
+		filename["DURATION"] = current->DURATION;
+		filename["STORY"] = current->STORY;
+		filename["CATEGORY"] = current->CATEGORY;
+		filename["LANGUAGE"] = current->LANGUAGE;
+		filename["ACTORS"] = current->ACTORS;
+		filename["DIRECTOR"] = current->DIRECTOR;
+		filename["WHERE"] = current->WHERE;
+		//filename["DATE"] = current->DATE;
+		filename["ROOM"] = current->ROOM;
+		//filename["TIME"] = current->TIME;
+
+		j.push_back(filename);
+
+		current = current->next;
+	}
+	file << j.dump(4);
+	file.close();
+	cout << "Movie has been updated!" << endl;
 }
