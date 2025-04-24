@@ -22,7 +22,6 @@ string trim(const string& str) {
 bool openFile(ifstream& file, const string& filename) {
 	file.open(filename);
 	if (file.fail()) {
-		cout << "Unable to open file " << filename << endl;
 		return false;
 	}
 	return true;
@@ -67,9 +66,7 @@ Movie* loadMoviesFromFile(string& filename) {
 
 
 
-void saveMoviesToFile(Movie* head) {
-	string filename = selectedTown();
-
+void saveMoviesToFile(Movie* head, const string& filename) {
 	ofstream file(filename);
 	if (!file) {
 		cout << "Failed to open file: " << filename << endl;
@@ -105,8 +102,7 @@ void saveMoviesToFile(Movie* head) {
 }
 
 
-void addMovie(Movie* head) {
-	cinemaCity();
+void addMovie(Movie*& head, const string& filename) {
 	Movie* newMovie = new Movie;
 	cin.ignore();
 	
@@ -176,13 +172,14 @@ void addMovie(Movie* head) {
 	string category;
 	cout << "Enter the movie category: ";
 	while (true) {
-		getline(cin, newMovie->CATEGORY);
+		getline(cin, category);
+
 		if (category == "B" || category == "D" || category == "C+" || category == "D+") {
 			newMovie->CATEGORY = category;
 			break;
 		}
 		else {
-			cout << "Try again: ";
+			cout << "Try again (valid options: B, D, C+, D+): ";
 		}
 	}
 
@@ -272,7 +269,7 @@ void addMovie(Movie* head) {
 	newMovie->next = head;
 	head = newMovie;
 	
-	saveMoviesToFile(head);
+	saveMoviesToFile(head, filename);
 }
 
 void editMovie(Movie* head, string& filename) {

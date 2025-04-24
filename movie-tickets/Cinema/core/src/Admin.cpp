@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "DrawText.h"
 #include "Movies.h"
+#include "Filters.h"
 
 bool adminLogin(string username,string password) {
 	 string Admin_User = "admin";
@@ -44,10 +45,17 @@ void adminMenu(Movie*& moviesHead) {
             system("cls");
 
             switch (selected) {
-            case 0:
-                system("cls");
-                addMovie(moviesHead);
-                break;
+            case 0: {
+                    system("cls");
+                    cinemaCity();
+                    newLine(3);
+
+                    string filename = selectedTown();
+                    Movie* townMovies = loadMoviesFromFile(filename);
+
+                    addMovie(townMovies, filename);
+                    break;
+                }
             case 1:
                 system("cls");
                 //editMovie(moviesHead, filename);
