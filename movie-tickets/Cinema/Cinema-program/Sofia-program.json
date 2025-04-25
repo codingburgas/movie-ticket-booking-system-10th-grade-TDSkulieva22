@@ -18,12 +18,11 @@
     ],
     "DIRECTOR": "Jared Hess",
     "WHERE": "Paradise Mall",
-    "DATE": "",
+    "DATE": "08.07.2025",
     "ROOM": "2D",
     "TIME": [
-      "",
-      "",
-      ""
+      "10:00",
+      "17:45"
     ]
   },
   {
@@ -45,12 +44,11 @@
     ],
     "DIRECTOR": "Jared Hess",
     "WHERE": "Paradise Mall",
-    "DATE": "",
+    "DATE": "08.07.2025",
     "ROOM": "3D",
     "TIME": [
-      "",
-      "",
-      ""
+      "8:20",
+      "19:50"
     ]
   },
   {
@@ -59,32 +57,28 @@
       "Horror",
       "Drama"
     ],
-      "DURATION": "137",
+    "DURATION": "137",
     "STORY": [
       "Set in the 1920s and 1930s, Sinners tells the story of two twin �cousins� who return to their hometown in the American South.",
       "They try to leave behind the difficult, troubled lives they have led until now, but encounter an even greater evil at home.",
       "",
       ""
     ],
-      "CATEGORY": "D",
-      "LANGUAGE: ": "English",
-      "ACTORS":[
-        "Hailee Steinfeld",
-        "Jamie Lawson",
-        "Lola Kirke"
-      ],
-      "DIRECTOR": "Ryan Coogle",
-      "WHERE": "Paradise Mall",
-      "DATE":[
-        "",
-        ""
-      ],
-      "ROOM":"2D",
-      "TIME":[
-        "",
-        "",
-        ""
-      ]
+    "CATEGORY": "D",
+    "LANGUAGE: ": "English",
+    "ACTORS": [
+      "Hailee Steinfeld",
+      "Jamie Lawson",
+      "Lola Kirke"
+    ],
+    "DIRECTOR": "Ryan Coogle",
+    "WHERE": "Paradise Mall",
+    "DATE": "08.07.2025",
+    "ROOM": "2D",
+    "TIME": [
+      "12:20",
+      "21:15"
+    ]
   },
   {
     "TITLE": "Sinners",
@@ -138,17 +132,32 @@
     ],
     "DIRECTOR": "Bong Jun Ho",
     "WHERE": "Paradise Mall",
-    "DATE": [
-      "",
-      "",
+    "DATE": "08.07.2025",
+    "ROOM": "2D",
+    "TIME": "15:00"
+  },
+  {
+    "TITLE": "Mickey 17",
+    "GENRE": "Fantasy",
+    "DURATION": "137",
+    "STORY": [
+      "From Oscar-winning director and screenwriter Bong Joon-ho of Parasite comes a new and shocking cinematic experience.",
+      "Mickey 17 tells the story of an unusual character, Mickey Barnes (Robert Pattinson), who finds himself in a rather unusual situation.",
+      "His employer demands his full commitment, including working him to the point of death.",
       ""
     ],
-    "ROOM": "2D",
-    "TIME": [
-      "",
-      "",
-      ""
-    ]
+    "CATEGORY": "C+",
+    "LANGUAGE: ": "English",
+    "ACTORS": [
+      "Robert Pattinson",
+      "Stephen Yeun",
+      "Naomi Ackie"
+    ],
+    "DIRECTOR": "Bong Jun Ho",
+    "WHERE": "Paradise Mall",
+    "DATE": "08.07.2025",
+    "ROOM": "3D",
+    "TIME": "14:10"
   },
   {
     "TITLE": "Snow White",
@@ -181,6 +190,33 @@
       ""
     ]
   },
+
+  {
+    "TITLE": "Snow White",
+    "GENRE": "Adventure",
+    "DURATION": "110",
+    "STORY": [
+      "Nearly 90 years after forever changing the world of cinema with their groundbreaking first feature-length animated film, Snow White and the Seven Dwarfs, Disney is revisiting the Brothers Grimm-inspired classic and bringing it to the big screen for a new generation in a stunning live-action version. ",
+      "Starring young star Rachel Zegler as the 'fearless, kind, brave and honest' heroine, and the irresistible Wonder Woman Gal Gadot as the Evil Queen.",
+      "",
+      ""
+    ],
+    "CATEGORY": "B",
+    "LANGUAGE": "English",
+    "ACTORS": [
+      "Rachel Zegler",
+      "Gal Gadot",
+      "Martin Kleba"
+    ],
+    "DIRECTOR": "Mark Webb",
+    "WHERE": "Paradise Mall",
+    "DATE": "08.07.2025",
+    "ROOM": "3D",
+    "TIME": [
+      "12:10",
+      "16:50"
+    ]
+  },
   {
     "TITLE": "Super Elfkins",
     "GENRE": [
@@ -188,33 +224,28 @@
       "Adventure",
       "Family"
     ],
-      "DURATION": "76",
-      "STORY": [
-        "For the cheerful and rebellious Elfie, life among humans is full of excitement and challenges. She uses every opportunity for fun while following her calling to help others. Elfie's world suddenly turns upside down when she meets Bo and his band of elves, who live for one purpose - to have fun.",
-        "Instead of being of service to humans, they use their skills and modern technology for extreme experiences on the edge of the law. They always narrowly escape the pursuit of the obsessed policewoman Lansky. ",
-        "She is convinced of the existence of elves and their mischievous nature and makes great efforts to capture them and expose them to the world.",
-        "Will the two clans of elves overcome their differences and together keep the secret about the little people who live to help people, or will Policeman Lansky be proven right?"
-      ],
-      "CATEGORY": "B",
-      "LANGUAGE: ": " ",
-      "ACTORS": [
-        "",
-        "",
-        ""
-      ],
-      "DIRECTOR": "",
-      "WHERE": "Paradise Mall",
-      "DATE":[
-        "",
-        "",
-        ""
-      ],
-      "ROOM": "2D",
-      "TIME": [
-        "",
-        "",
-        ""
-      ]
+    "DURATION": "76",
+    "STORY": [
+      "For the cheerful and rebellious Elfie, life among humans is full of excitement and challenges. She uses every opportunity for fun while following her calling to help others. Elfie's world suddenly turns upside down when she meets Bo and his band of elves, who live for one purpose - to have fun.",
+      "Instead of being of service to humans, they use their skills and modern technology for extreme experiences on the edge of the law. They always narrowly escape the pursuit of the obsessed policewoman Lansky. ",
+      "She is convinced of the existence of elves and their mischievous nature and makes great efforts to capture them and expose them to the world.",
+      "Will the two clans of elves overcome their differences and together keep the secret about the little people who live to help people, or will Policeman Lansky be proven right?"
+    ],
+    "CATEGORY": "B",
+    "LANGUAGE: ": " ",
+    "ACTORS": [
+      "",
+      "",
+      ""
+    ],
+    "DIRECTOR": "",
+    "WHERE": "Paradise Mall",
+    "DATE": "08.07.2025",
+    "ROOM": "2D",
+    "TIME": [
+      "8:20",
+      "19:40"
+    ]
   },
   {
     "TITLE": "Death Notice",
@@ -249,6 +280,36 @@
       "",
       "",
       ""
+    ]
+  },
+
+  {
+    "TITLE": "Death Notice",
+    "GENRE": [
+      "Drama",
+      "Mystery"
+    ],
+    "DURATION": "96",
+    "STORY": [
+      "In Death Note, Emmy nominee Megan Fahey (The White Lotus) stars as Violet, a widow and mother who finally decides to go on her first romantic date in years.",
+      "When she arrives at a fancy restaurant with a stunning view of the city, she discovers that she was worried about Henry, the man she is dating, is more attractive and charming than she expected. ",
+      "The chemistry between the two is palpable, but the atmosphere is soon darkened when Violet receives a series of anonymous phone messages that seem like a bad joke, but soon turn into real terror. ",
+      "The messages are categorical - she must follow the instructions she receives closely or the man she sees on the security cameras in her home will kill her young son and her sister. And the final order from her invisible tormentor? Violet must kill Henry."
+    ],
+    "CATEGORY": "D+",
+    "LANGUAGE: ": "English",
+    "ACTORS": [
+      "Megan Fahey",
+      "Violet Bean",
+      "Brandon Sklenar"
+    ],
+    "DIRECTOR": "Christopher Landon",
+    "WHERE": "Paradise Mall",
+    "DATE": "08.07.2025",
+    "ROOM": "3D",
+    "TIME": [
+      "10:20",
+      "21:40"
     ]
   },
   {
