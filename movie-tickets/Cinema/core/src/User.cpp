@@ -1,7 +1,44 @@
+#define UNICODE
 #include "pch.h"
 #include "User.h"
 #include "Validation.h"
 #include "Menu.h"
+#include <sqlext.h>
+SQLHENV hEnv = NULL;
+SQLHENV hDbc = NULL;
+
+
+bool connectToDatabase() {
+
+
+
+
+	SQLWCHAR connStr[] = L"Driver={ODBC Driver 17 for SQL Server};Server=.;Database=CinemaDB;Trusted_Connection=yes;";
+	SQLWCHAR outConnSTR[1024];
+	SQLSMALLINT outConnSTRLen;
+
+	SQLRETURN ret;
+
+	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
+	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
+
+	ret = SQLDriverConnectW(hDbc, NULL, connStr, SQL_NTS, outConnSTR, 1024, &outConnSTRLen, SQL_DRIVER_COMPLETE);
+	return (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO);
+}
+
+
+void disconnectFromDatabase() {
+	SQLDisconnect(hDbc);
+	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+}
+
+
+
+
+
+
 
 json users;  //Global json object to store user data
 void initUsers() {
