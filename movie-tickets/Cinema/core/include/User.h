@@ -11,4 +11,8 @@ void userMainMenu();
 json readUsersFromJson(const string& filename);
 
 
+bool connectToDatabase();
+void disconnectFromDatabase();
+
+
 

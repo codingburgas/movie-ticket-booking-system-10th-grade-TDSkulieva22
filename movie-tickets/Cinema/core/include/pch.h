@@ -12,6 +12,8 @@
 #include <thread>
 #include <windows.h>
 #include <sstream>
+#include <sqlext.h>
+
 
 using namespace std;
 using json = nlohmann::json;

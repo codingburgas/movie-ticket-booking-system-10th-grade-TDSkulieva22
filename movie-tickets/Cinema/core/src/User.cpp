@@ -9,10 +9,6 @@ SQLHENV hDbc = NULL;
 
 
 bool connectToDatabase() {
-
-
-
-
 	SQLWCHAR connStr[] = L"Driver={ODBC Driver 17 for SQL Server};Server=.;Database=CinemaDB;Trusted_Connection=yes;";
 	SQLWCHAR outConnSTR[1024];
 	SQLSMALLINT outConnSTRLen;

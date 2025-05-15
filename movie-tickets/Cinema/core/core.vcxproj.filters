@@ -51,6 +51,9 @@
     <ClInclude Include="include\Filters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\DatabaseManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Admin.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Filters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DatabaseManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
