@@ -4,6 +4,7 @@
 #include "Validation.h"
 #include "Menu.h"
 #include <sqlext.h>
+#include "DatabaseManager.h"
 SQLHENV hEnv = NULL;
 SQLHENV hDbc = NULL;
 
@@ -29,11 +30,6 @@ void disconnectFromDatabase() {
 	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
 	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
 }
-
-
-
-
-
 
 
 json users;  //Global json object to store user data
@@ -95,6 +91,18 @@ int  userRegister(json& users) {
 		return -1;  
 	}
 
+	//wstring wUsername(username.begin(), username.end());
+	//wstring wPassword(password.begin(), password.end()); // Consider hashing here
+	//wstring insertQuery = L"INSERT INTO Users(Username, Pass) VALUES (N'" + wUsername + L"', N'" + wPassword + L"')";
+
+	//if (db.executeNonQuery(insertQuery)) {
+	//	cout << "Successful registration!\n";
+	//	return 1;
+	//}
+	//else {
+	//	cout << "Error saving user data to database.\n";
+	//	return -1;
+	//}
 
 	system("pause");
 }
@@ -108,6 +116,23 @@ bool userLogin(const json& users) {
 	cin >> username;
 	cout << "Enter password: ";
 	password = getHiddenPassword();
+
+
+	/*wstring wUsername(username.begin(), username.end());
+	wstring wPassword(password.begin(), password.end());
+
+	wstring query = L"SELECT COUNT(*) FROM Users WHERE Username = N'" + wUsername + L"' AND Pass = N'" + wPassword + L"'";
+
+	int count = db.executeScalar(query);
+	if (count == 1) {
+		cout << "Login successful!\n";
+		return true;
+	}
+	else {
+		cout << "Invalid username or password.\n";
+		return false;
+	}*/
+
 
 	return autehnticate(users, username, password);
 
