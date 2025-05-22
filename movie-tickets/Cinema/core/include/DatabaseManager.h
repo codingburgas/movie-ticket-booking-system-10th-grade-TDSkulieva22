@@ -1,10 +1,11 @@
 #include "pch.h"
 
+extern SQLHENV hEnv;
+extern SQLHDBC hDbc;
+
 class DatabaseManager
 {
-private:
-	SQLHENV hEnv;
-	SQLHENV hDbc;
+
 
 public:
 	bool connect();

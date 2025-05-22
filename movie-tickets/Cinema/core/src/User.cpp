@@ -5,54 +5,52 @@
 #include "Menu.h"
 #include <sqlext.h>
 #include "DatabaseManager.h"
-SQLHENV hEnv = NULL;
-SQLHENV hDbc = NULL;
+
+extern SQLHENV hEnv;
+extern SQLHDBC hDbc;
+
+bool User::userExists(const wstring& username) {
+	SQLHSTMT hStmt;
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+
+	if (hDbc == NULL) {
+		cout<<"mn kofti"<<endl;
+	}
+	wstring query = L"SELECT COUNT(*) FROM Users WHERE Username = N'" + username + L"'";
+	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);
+	if (!(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)) {
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+		return false;
+	}
+
+	SQLINTEGER count = 0;
+	if (SQLFetch(hStmt) == SQL_SUCCESS) {
+		SQLGetData(hStmt, 1, SQL_C_SLONG, &count, 0, NULL);
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	return count > 0;
+}
+
+bool User::userRegister(const wstring& username, const wstring& password) {
+
+	if (userExists(username)) {
+		wcout << L"User already registered!" << endl;
+		return false;
+	}
 
 
-bool connectToDatabase() {
-	SQLWCHAR connStr[] = L"Driver={ODBC Driver 17 for SQL Server};Server=.;Database=CinemaDB;Trusted_Connection=yes;";
-	SQLWCHAR outConnSTR[1024];
-	SQLSMALLINT outConnSTRLen;
+	SQLHSTMT hStmt;
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
 
-	SQLRETURN ret;
+	wstring query = L"INSERT INTO Users(Username,Pass) VALUES (N'" + username + L"',N'" + password + L"')";
+	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);
 
-	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
-	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
-	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
-
-	ret = SQLDriverConnectW(hDbc, NULL, connStr, SQL_NTS, outConnSTR, 1024, &outConnSTRLen, SQL_DRIVER_COMPLETE);
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 	return (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO);
-}
 
-
-void disconnectFromDatabase() {
-	SQLDisconnect(hDbc);
-	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
-	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
-}
-
-
-json users;  //Global json object to store user data
-void initUsers() {
-	users = readUsersFromJson("users.json");
-}
-
-json readUsersFromJson(const string& filename) {
-	ifstream file(filename);
-	json j;
-	if (file.is_open()) {
-		file >> j;
-		file.close();
-
-
-	}
-	else {
-		j = { {"users", json::array()} };
-	}
-	return j;
-}
-
-int  userRegister(json& users) {
+	/*
+		
 	string username;
 	string password;
 
@@ -104,18 +102,41 @@ int  userRegister(json& users) {
 	//	return -1;
 	//}
 
-	system("pause");
+	system("pause")*/
 }
 
-bool userLogin(const json& users) {
-	string username;
-	string password;
+bool User::userLogin(const wstring& username, const wstring& password) {
+	// string username;
+	// string password;
+	// 
+	// cout << "=== Login ===\n";
+	// cout << "Enter username: ";
+	// cin >> username;
+	// cout << "Enter password: ";
+	// password = getHiddenPassword();
 
-	cout << "=== Login ===\n";
-	cout << "Enter username: ";
-	cin >> username;
-	cout << "Enter password: ";
-	password = getHiddenPassword();
+
+
+
+	SQLHSTMT hStmt;
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+
+	wstring query = L"SELECT COUNT(*) FROM Users WHERE Username = N'" + username + L"' AND Pass = N'" + password + L"'";
+	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);
+
+
+	if (!(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)) {
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+		return false;
+	}
+
+	SQLINTEGER count = 0;
+	if (SQLFetch(hStmt) == SQL_SUCCESS) {
+		SQLGetData(hStmt, 1, SQL_C_SLONG, &count, 0, NULL);
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	return count > 0;
 
 
 	/*wstring wUsername(username.begin(), username.end());
@@ -134,12 +155,12 @@ bool userLogin(const json& users) {
 	}*/
 
 
-	return autehnticate(users, username, password);
+	//return autehnticate(users, username, password);
 
 	system("pause");
 }
 
-void userMainMenu()
+void User::userMainMenu()
 {
 	int menuSelected = 0;
 	bool menuRunning = true;

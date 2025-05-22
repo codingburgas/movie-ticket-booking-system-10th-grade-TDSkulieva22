@@ -174,31 +174,57 @@ void menu() {
                                 else if (userKey == 13) {
                                     system("cls");
                                     if (userSelected == 0) {  //"LOGIN" is selected
-                                        if (userLogin(users)) {
+                                        wstring username, password;
+                                        wcout << "Enter username: ";
+                                        wcin >> username;
+
+                                        wcout << endl;
+
+                                        wcout << "Enter password: ";
+                                        wcin >> password;
+
+
+                                        if (User::userLogin(username, password)) {
                                             cout << "Login successful!" << endl;
                                             system("pause");
                                             userRunning = false;
                                             system("cls");
-                                            userMainMenu();
+                                            User::userMainMenu();
                                         }
                                         else {
                                             cout << "Failed to login!" << endl;
                                             system("pause");
                                         }
                                     }
-                                    else if (userSelected == 1) {  //"SIGNUP" is selected
-                                        int result = userRegister(users);
-                                        if (result == 1) {
-                                            cout << "Registration successful!" << endl;
+                                    else if (userSelected == 1) { //"SIGNUP" is selected
+                                   
+                                        wstring username, password;
+                                        wcout << L"Enter username: ";
+                                        wcin >> username;
+
+                                        wcout << endl;
+
+                                        wcout << L"Enter password: ";
+                                        wcin >> password;
+
+                                        if (User::userExists(username)) {
+                                            wcout << L"Username already registered!" << endl;
                                             system("pause");
-                                            userRunning = false;
-                                            system("cls");
-                                            userMainMenu();
                                         }
-                                        else if (result == -1) {
-                                            cout << "Error saving user data." << endl;
+                                        else
+                                        {
+                                            if (User::userRegister(username, password)) {
+                                                wcout << L"Registration successful!" << endl;
+                                                userRunning = false;
+                                                system("cls");
+                                                User::userMainMenu();
+                                            }
+                                            else {
+                                                wcout << L"Registration failed!" << endl;
+                                            }
                                         }
-                                        userRunning = false;
+
+
                                     }
                                 }
                             }
@@ -218,6 +244,7 @@ void menu() {
         }
     }
 }
+
 
 
 

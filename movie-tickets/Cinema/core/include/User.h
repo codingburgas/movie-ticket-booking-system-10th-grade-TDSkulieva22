@@ -1,18 +1,21 @@
 #pragma once
 #include "pch.h"
 
-using json = nlohmann::json;
-extern json users;
-void initUsers();
-
-bool userLogin(const json& users);
-int userRegister(json& users);
-void userMainMenu();
-json readUsersFromJson(const string& filename);
 
 
-bool connectToDatabase();
-void disconnectFromDatabase();
+class User {
+public:
+	static bool userExists(const wstring& username);
+	static bool userRegister(const wstring& username, const wstring& password);
+	static bool userLogin(const wstring& username, const wstring& password);
+	static void userMainMenu();
+};
+
+
+
+
+
+
 
 
 

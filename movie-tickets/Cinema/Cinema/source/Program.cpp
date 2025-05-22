@@ -14,11 +14,11 @@ void gotoxy(int x, int y) {
 int main()
 {
 
-	/*DatabaseManager db;
+	DatabaseManager db;
 	if (!db.connect()) {
 		wcout << L"Invalid connection" << endl;
 		return 1;
-	}*/
+	}
 
 	// wstring name = L"testlogin";
 	// wstring pass = L"testparola";
@@ -27,10 +27,11 @@ int main()
 
 	/*db.executeQuery(L"SELECT * FROM Users",2);
 	db.executeQuery(L"SELECT * FROM Users", 3);
-	db.disconnect();*/
+	*/
+
 
 
 	  hideCursor();
-	  initUsers();
 	  menu();
+	  db.disconnect();
 }

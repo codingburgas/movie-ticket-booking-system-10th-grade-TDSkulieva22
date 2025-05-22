@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "DatabaseManager.h"
 
+SQLHENV hEnv = nullptr;
+SQLHDBC hDbc = nullptr;
 
 bool DatabaseManager::connect() {
 	SQLWCHAR connStr[] = L"Driver={ODBC Driver 17 for SQL Server};Server=.;Database=CinemaDB;Trusted_Connection=yes;";
