@@ -16,8 +16,6 @@ bool adminLogin(string username,string password) {
 void adminMenu(Movie*& moviesHead) {
     int selected = 0;
     bool adminRunning = true;
-    
-    cinemaCity();
 
     vector<string> userOptions = {
         "Add movie",
@@ -30,8 +28,10 @@ void adminMenu(Movie*& moviesHead) {
 
     while (adminRunning) {
         system("cls");
-        newLine(1);
-        options(userOptions, selected, 6);
+
+        cinemaCity();
+
+        options(userOptions, selected, 3);
 
         char key = _getch(); //Read a single character
 
@@ -48,7 +48,7 @@ void adminMenu(Movie*& moviesHead) {
             case 0: {
                     system("cls");
                     cinemaCity();
-                    newLine(3);
+                    newLine(1);
 
                     string filename = selectedTown();
                     Movie* townMovies = loadMoviesFromFile(filename);
@@ -59,7 +59,7 @@ void adminMenu(Movie*& moviesHead) {
             case 1: {
                 system("cls");
                 cinemaCity();
-                newLine(3);
+                newLine(1);
 
                 string filename = selectedTown();
                 Movie* townMovies = loadMoviesFromFile(filename);

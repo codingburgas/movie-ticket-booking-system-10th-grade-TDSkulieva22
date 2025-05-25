@@ -2,6 +2,8 @@
 #include "Validation.h"
 #include "Admin.h"
 #include "Menu.h"
+#include "DrawText.h"
+#include "Colors.h"
 
 bool autehnticate(const json& users, const string& username, const string& password) {  //Authenticate a user based on the provided username and password
 	for (const auto& user : users["users"]) {
@@ -66,14 +68,29 @@ string getHiddenPassword() {
 }
 
 bool isAdmin() {
+	adminTitle();
+	newLine(2);
+
 	string username;
 	string password;
 	int attempts = 0;
 
 	while (attempts < 3) {
-		cout << "Enter admin username: ";
+		system("cls");
+		adminTitle();
+
+		newLine(2);
+
+		setColor(YELLOW);
+		cout << "     -> Enter admin username: ";
+		resetColor();
+
 		cin >> username;
-		cout << "Enter admin password: ";
+
+		setColor(YELLOW);
+		cout << "     -> Enter admin password: ";
+		resetColor();
+
 		password = getHiddenPassword();
 
 		if (adminLogin(username, password)) {
@@ -81,7 +98,11 @@ bool isAdmin() {
 		}
 		else {
 			attempts++;
-			cout << "Incorrect username or password!" << endl;
+			newLine(2);
+			setColor(RED);
+			cout << "     !!! Incorrect username or password!" << endl;
+			resetColor();
+			Sleep(1300);
 		}
 	}
 	return false;

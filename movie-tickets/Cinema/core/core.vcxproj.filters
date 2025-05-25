@@ -24,9 +24,6 @@
     <ClInclude Include="include\Admin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Color.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Colors.h">
       <Filter>Header Files</Filter>
     </ClInclude>

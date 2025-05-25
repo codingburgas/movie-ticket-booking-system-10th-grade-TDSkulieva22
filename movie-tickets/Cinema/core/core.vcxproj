@@ -142,7 +142,6 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="include\Admin.h" />
-    <ClInclude Include="include\Color.h" />
     <ClInclude Include="include\Colors.h" />
     <ClInclude Include="include\DatabaseManager.h" />
     <ClInclude Include="include\DrawText.h" />

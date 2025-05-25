@@ -142,7 +142,6 @@ void menu() {
                         if (roleSelected == 0) {
                             system("cls");
                             if (isAdmin()) {
-                                cout << "Admin login successful!" << endl;
                                 adminMenu(moviesHead);
                                 running = true;  //Go back to the main menu
                             }
