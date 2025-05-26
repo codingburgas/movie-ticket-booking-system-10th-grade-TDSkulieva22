@@ -5,6 +5,7 @@
 #include "Menu.h"
 #include <sqlext.h>
 #include "DatabaseManager.h"
+#include "Colors.h"
 
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
@@ -30,6 +31,29 @@ bool User::userExists(const wstring& username) {
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 	return count > 0;
+}
+
+void User::userRegisterPr(wstring& username, wstring& password) {
+	system("cls");
+	setColor(WHITE);
+	cout << "========= USER REGISTRATION =========\n";
+	resetColor();
+
+	string inputUsername;
+	string inputPassword;
+
+	cout << "Enter username: ";
+	cin >> inputUsername;
+
+	bool valid = false;
+	while (!valid) {
+		cout << "Enter password (Min 6 chars, 1 uppercase, 1 digit, 1 special): ";
+		inputPassword = getHiddenPassword();
+		valid = isValidPassword(inputPassword);
+	}
+
+	username = wstring(inputUsername.begin(), inputUsername.end());
+	password = wstring(inputPassword.begin(), inputPassword.end());
 }
 
 bool User::userRegister(const wstring& username, const wstring& password) {
@@ -104,7 +128,25 @@ bool User::userRegister(const wstring& username, const wstring& password) {
 
 	system("pause")*/
 }
+void User::userLoginPr(wstring& username, wstring& password) {
+	system("cls");
+	setColor(WHITE);
+	cout << "============= USER LOGIN =============\n";
+	resetColor();
 
+	string inputUsername;
+	string inputPassword;
+
+	cout << "Enter username: ";
+	cin >> inputUsername;
+
+	cout << "Enter password: ";
+	inputPassword = getHiddenPassword();
+
+	username = wstring(inputUsername.begin(), inputUsername.end());
+	password = wstring(inputPassword.begin(), inputPassword.end());
+
+}
 bool User::userLogin(const wstring& username, const wstring& password) {
 	// string username;
 	// string password;
