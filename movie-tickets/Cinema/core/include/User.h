@@ -11,6 +11,7 @@ public:
 	static void userMainMenu();
 	static void userRegisterPr(wstring& username, wstring& password);
 	static void userLoginPr(wstring& username, wstring& password);
+	static void userOffers();
 };
 
 

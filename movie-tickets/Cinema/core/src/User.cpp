@@ -245,12 +245,29 @@ void User::userMainMenu()
 				cout << "Displaying your tickets...\n";
 				break;
 			case 4:
-				cout << "Showing current offers...\n";
-				menuRunning = false;
+				//cout << "Showing current offers...\n";
+				//menuRunning = false;
+				userOffers();
 				break;
 			}
 
 			system("pause");
 		}
 	}
+}
+
+void User::userOffers() {
+	system("cls");
+	setColor(WHITE);
+	cout << "========= CINEMA TICKET OFFERS =========\n";
+	resetColor();
+
+	printCentered("1. Monday Special: Get 10% discount on all reserved tickets for Mondays.\n", 4);
+	printCentered("2. Group Discount: If you reserve tickets for a group of up to 10 people, get 5% off the total.\n", 6);
+	printCentered("3. Coupon Code Offer: Enter a valid coupon code (TICKET2%) at checkout to get 2% discount.\n", 8);
+	printCentered("4. Loyalty Bonus: Buy 5 tickets and get the 6th ticket free!\n", 10);
+
+	setColor(YELLOW);
+	printCentered("Note: Discounts cannot be combined.\n", 12);
+	resetColor();
 }
