@@ -234,6 +234,7 @@ void menu() {
                 }
             }
             else {
+                resetColor();
                 system("cls");
                 printCentered("Goodbye! You can close the app by pressing any key button...", 10);
                 running = false;

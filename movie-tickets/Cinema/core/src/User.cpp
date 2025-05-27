@@ -6,6 +6,7 @@
 #include <sqlext.h>
 #include "DatabaseManager.h"
 #include "Colors.h"
+#include "DrawText.h"
 
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
@@ -35,6 +36,10 @@ bool User::userExists(const wstring& username) {
 
 void User::userRegisterPr(wstring& username, wstring& password) {
 	system("cls");
+
+	cinemaCity();
+	newLine(4);
+
 	setColor(WHITE);
 	cout << "========= USER REGISTRATION =========\n";
 	resetColor();
@@ -130,6 +135,10 @@ bool User::userRegister(const wstring& username, const wstring& password) {
 }
 void User::userLoginPr(wstring& username, wstring& password) {
 	system("cls");
+
+	newLine(4);
+	cinemaCity();
+
 	setColor(WHITE);
 	cout << "============= USER LOGIN =============\n";
 	resetColor();
@@ -217,7 +226,7 @@ void User::userMainMenu()
 
 	while (menuRunning) {
 		system("cls");
-		newLine(1);
+		cinemaCity();
 		options(userOptions, menuSelected, 6);
 
 		char key = _getch();
