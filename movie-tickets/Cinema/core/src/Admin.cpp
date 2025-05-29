@@ -50,10 +50,10 @@ void adminMenu(Movie*& moviesHead) {
                     cinemaCity();
                     newLine(1);
 
-                    string filename = selectedTown();
-                    Movie* townMovies = loadMoviesFromFile(filename);
+                    addMovie();
+                    //Movie* townMovies = loadMoviesFromFile(filename);
 
-                    addMovie(townMovies, filename);
+                    //addMovie(townMovies, filename);
                     break;
                 }
             case 1: {
@@ -62,13 +62,13 @@ void adminMenu(Movie*& moviesHead) {
                 newLine(1);
 
                 string filename = selectedTown();
-                Movie* townMovies = loadMoviesFromFile(filename);
+                //Movie* townMovies = loadMoviesFromFile(filename);
 
-                editMovie(moviesHead, filename);
+                //editMovie(moviesHead, filename);
                 break;
             }
             case 2:
-                cout << "Delete movie...\n";
+                deleteMovie();
                 break;
             case 3:
                 cout << "View reservations...\n";
