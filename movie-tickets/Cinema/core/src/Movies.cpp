@@ -5,7 +5,7 @@
 #include "Movies.h"
 #include "Filters.h"
 #include "DatabaseManager.h" 
-
+#include "Colors.h"
 
 //string toLower(const string& input) {
 //	string result = input;
@@ -137,12 +137,13 @@ void editMovie() {
     cinemaCity();
     newLine(1);
 
-    cout << "     --- Edit Movie ---\n\n";
-
     string origTitle;
     cin.ignore();
 
-    cout << "     Enter the Title of the Movie to Edit: ";
+    newLine(4);
+    setColor(YELLOW);
+    cout << "    --> Enter the Title of the Movie to Edit: ";
+    resetColor();
     getline(cin, origTitle);
 
     wstring OrigTitle = wstring(origTitle.begin(), origTitle.end());
@@ -160,10 +161,16 @@ void editMovie() {
     while (edit) {
         system("cls");
         cinemaCity();
-        newLine(1);
+        newLine(4);
 
-        cout << "     --- Editing Movie: " << origTitle << " ---\n\n";
-        cout << "     What would you like to edit?\n";
+        setColor(LIGHT_BLUE);
+        cout << "               --- Editing Movie: " << origTitle << " ---\n\n";
+        resetColor();
+
+        setColor(YELLOW);
+        cout << "    --> What would you like to edit?\n";
+        resetColor();
+
         cout << "     1. Title\n";
         cout << "     2. Genre\n";
         cout << "     3. Duration\n";
@@ -173,8 +180,11 @@ void editMovie() {
         cout << "     7. Actor\n";
         cout << "     8. Director\n";
         cout << "     0. Cancel / Back to Menu\n";
+
         newLine(1);
-        cout << "     Choose an option: ";
+        setColor(YELLOW);
+        cout << "    --> Choose an option: ";
+        resetColor();
 
         int choice;
         cin >> choice;
@@ -191,7 +201,10 @@ void editMovie() {
 
         switch (choice) {
         case 1:
-            cout << "     Enter new Title: ";
+            setColor(YELLOW);
+            cout << "    --> Enter new Title: ";
+            resetColor();
+
             getline(cin, newVal);
             {
                 wstring NewTitle = wstring(newVal.begin(), newVal.end());
@@ -204,13 +217,19 @@ void editMovie() {
             break;
 
         case 2:
-            cout << "     Enter new Genre: ";
+            setColor(YELLOW);
+            cout << "    --> Enter new Genre: ";
+            resetColor();
+
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Genre = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
             break;
 
         case 3:
-            cout << "     Enter new Duration (minutes): ";
+            setColor(YELLOW);
+            cout << "    --> Enter new Duration (minutes): ";
+            resetColor();
+
             cin >> newDuration;
             cin.ignore();
             sqlQuery = L"UPDATE Movies SET Duration = " + to_wstring(newDuration) + L" WHERE Title = N'" + OrigTitle + L"'";
@@ -218,52 +237,77 @@ void editMovie() {
 
 
         case 4:
-            cout << "     Enter new Story: ";
+            setColor(YELLOW);
+            cout << "    --> Enter new Story: ";
+            resetColor();
+
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Story = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
             break;
 
 
         case 5:
-            cout << "     Enter new Category: ";
+            setColor(YELLOW);
+            cout << "    --> Enter new Category: ";
+            resetColor();
+
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Category = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
             break;
 
 
         case 6:
-            cout << "     Enter new Languages: ";
+            setColor(YELLOW);
+            cout << "    --> Enter new Languages: ";
+            resetColor();
+
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Languages = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
             break;
 
         case 7:
-            cout << "     Enter new Actor(s): ";
+            setColor(YELLOW);
+            cout << "    --> Enter new Actor: ";
+            resetColor();
+
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Actor = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
             break;
 
 
         case 8:
-            cout << "     Enter new Director: ";
+            setColor(YELLOW);
+            cout << "    --> Enter new Director: ";
+            resetColor();
+
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Director = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
             break;
 
         default:
+            setColor(RED);
             cout << "\n     Invalid choice. Try again.\n";
+            resetColor();
+
             _getch();
             continue;
         }
 
         if (dbManager.executeNonQuery(sqlQuery)) {
+            setColor(LIGHT_GREEN);
             cout << "\n     Field updated successfully!\n";
+            resetColor();
         }
         else {
+            setColor(RED);
             cout << "\n     Failed to update. Movie may not exist.\n";
+            resetColor();
         }
 
+        setColor(YELLOW);
         cout << "\n     Do you want to edit another field? (yes/no): ";
+        resetColor();
+
         string again;
         cin >> again;
         cin.ignore();
@@ -274,9 +318,6 @@ void editMovie() {
     }
 
     dbManager.disconnect();
-
-    cout << "\n     Returning to Admin Menu...\n";
-    cout << "     Press any key to continue...";
     _getch();
 }
 
