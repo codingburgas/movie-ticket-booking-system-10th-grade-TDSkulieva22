@@ -4,5 +4,7 @@
 
 void addMovie();
 void deleteMovie();
+void editMovie();
+
 
 #endif // MOVIES_H

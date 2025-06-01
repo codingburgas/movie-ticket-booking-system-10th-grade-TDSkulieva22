@@ -51,9 +51,6 @@ void adminMenu(Movie*& moviesHead) {
                     newLine(1);
 
                     addMovie();
-                    //Movie* townMovies = loadMoviesFromFile(filename);
-
-                    //addMovie(townMovies, filename);
                     break;
                 }
             case 1: {
@@ -61,13 +58,14 @@ void adminMenu(Movie*& moviesHead) {
                 cinemaCity();
                 newLine(1);
 
-                string filename = selectedTown();
-                //Movie* townMovies = loadMoviesFromFile(filename);
-
-                //editMovie(moviesHead, filename);
+                editMovie();
                 break;
             }
             case 2:
+                system("cls");
+                cinemaCity();
+                newLine(1);
+
                 deleteMovie();
                 break;
             case 3:
