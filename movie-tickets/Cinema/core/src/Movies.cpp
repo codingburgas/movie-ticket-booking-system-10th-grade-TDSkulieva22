@@ -25,37 +25,56 @@ void addMovie() {
     cinemaCity();
     newLine(1);
 
-    cout << "     --- Add New Movie ---\n\n";
-
     //Gather movie details
     string title, genre, story, category, languages, actor, director;
     int duration;
 
     cin.ignore();
 
-    cout << "     Enter Title: ";
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter Title: ";
+    resetColor();
+
     getline(cin, title);
 
-    cout << "     Enter Genre: ";
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter Genre: ";
+    resetColor();
+
     getline(cin, genre);
 
-    cout << "     Enter Duration (minutes): ";
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter Duration (minutes): ";
+    resetColor();
+
     cin >> duration;
     cin.ignore();
 
-    cout << "     Enter Story: ";
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter Story: ";
+    resetColor();
+
     getline(cin, story);
 
-    cout << "     Enter Category (e.g., PG-13, R): ";
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter Category (e.g., PG-13, R): ";
+    resetColor();
     getline(cin, category);
 
-    cout << "     Enter Languages: ";
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter Languages: ";
+    resetColor();
     getline(cin, languages);
 
-    cout << "     Enter Main Actor(s): ";
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter Main Actor(s): ";
+    resetColor();
+
     getline(cin, actor);
 
-    cout << "     Enter Director: ";
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter Director: ";
+    resetColor();
     getline(cin, director);
 
     //Convert string to wstring
@@ -82,31 +101,38 @@ void addMovie() {
     DatabaseManager dbManager;
     if (dbManager.connect()) {
         if (dbManager.executeNonQuery(sqlQuery)) {
+            setColor(LIGHT_GREEN);
             cout << "\n     Movie added successfully!\n";
+            resetColor();
         }
         else {
+            setColor(RED);
             cout << "\n     Failed to add movie.\n";
+            resetColor();
         }
         dbManager.disconnect();
     }
     else {
+        setColor(RED);
         cout << "\n     Failed to connect to the database.\n";
+        resetColor();
     }
 
-    cout << "\n     Press any key to continue...";
     _getch(); // Wait for user input
 }
 
 void deleteMovie() {
     system("cls");
     cinemaCity();
-    newLine(1);
-
-    cout << "     --- Delete Movie ---\n\n";
+    newLine(3);
 
     string title;
     cin.ignore();
-    cout << "     Enter the Title of the Movie to Delete: ";
+
+    setColor(LIGHT_BLUE);
+    cout << "    --> Enter the Title of the Movie to Delete: ";
+    resetColor();
+
     getline(cin, title);
 
     wstring Title = wstring(title.begin(), title.end());
@@ -117,22 +143,27 @@ void deleteMovie() {
     DatabaseManager dbManager;
     if (dbManager.connect()) {
         if (dbManager.executeNonQuery(sqlQuery)) {
-            cout << "\n     Movie deleted successfully (if it existed).\n";
+            setColor(LIGHT_GREEN);
+            cout << "\n     Movie deleted successfully.\n";
+            resetColor();
         }
         else {
+            setColor(RED);
             cout << "\n     Failed to delete movie.\n";
+            resetColor();
         }
         dbManager.disconnect();
     }
     else {
+        setColor(RED);
         cout << "\n     Failed to connect to the database.\n";
+        resetColor();
     }
-
-    cout << "\n     Press any key to continue...";
     _getch(); // Wait for user input
 }
 
-void editMovie() {
+void editMovie()
+{
     system("cls");
     cinemaCity();
     newLine(1);
@@ -198,92 +229,132 @@ void editMovie() {
         string newVal;
         int newDuration = 0;
         wstring sqlQuery;
+        bool queryConstructed = false;
 
         switch (choice) {
         case 1:
+        {
             setColor(YELLOW);
             cout << "    --> Enter new Title: ";
             resetColor();
 
             getline(cin, newVal);
-            {
-                wstring NewTitle = wstring(newVal.begin(), newVal.end());
-                sqlQuery = L"UPDATE Movies SET Title = N'" + NewTitle + L"' WHERE Title = N'" + OrigTitle + L"'";
 
-                //Update to reflect the change
-                OrigTitle = NewTitle;
-                origTitle = newVal;
-            }
+            wstring NewTitle = wstring(newVal.begin(), newVal.end());
+            sqlQuery = L"UPDATE Movies SET Title = N'" + NewTitle + L"' WHERE Title = N'" + OrigTitle + L"'";
+
+            //Update to reflect the change
+            origTitle = newVal;
+            OrigTitle = NewTitle;
+            queryConstructed = true;
             break;
+        }
 
         case 2:
+        {
             setColor(YELLOW);
             cout << "    --> Enter new Genre: ";
             resetColor();
 
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Genre = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
+            queryConstructed = true;
             break;
+        }
 
-        case 3:
-            setColor(YELLOW);
-            cout << "    --> Enter new Duration (minutes): ";
-            resetColor();
+        case 3: {
+            string input;
+            int newDuration = 0;
+            bool valid = false;
 
-            cin >> newDuration;
-            cin.ignore();
-            sqlQuery = L"UPDATE Movies SET Duration = " + to_wstring(newDuration) + L" WHERE Title = N'" + OrigTitle + L"'";
+            while (!valid) {
+                setColor(YELLOW);
+                cout << "     Enter new Duration (minutes): ";
+                resetColor();
+                getline(cin, input);
+
+                valid = !input.empty();
+
+                newDuration = 0;
+                for (char c : input) {
+                    if (c < '0' || c > '9') {
+                        valid = false;
+                        break;
+                    }
+                    newDuration = newDuration * 10 + (c - '0');
+                }
+
+                if (!valid || newDuration == 0) {
+                    setColor(RED);
+                    cout << "     Invalid input! Please enter a positive number.\n";
+                    resetColor();
+                }
+            }
+
+            sqlQuery = L"UPDATE Movies SET Duration = " + to_wstring(newDuration) +
+                L" WHERE Title = N'" + OrigTitle + L"'";
+            queryConstructed = true;
             break;
-
+        }
 
         case 4:
+        {
             setColor(YELLOW);
             cout << "    --> Enter new Story: ";
             resetColor();
 
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Story = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
+            queryConstructed = true;
             break;
-
+        }
 
         case 5:
+        {
             setColor(YELLOW);
             cout << "    --> Enter new Category: ";
             resetColor();
 
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Category = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
+            queryConstructed = true;
             break;
-
+        }
 
         case 6:
+        {
             setColor(YELLOW);
             cout << "    --> Enter new Languages: ";
             resetColor();
 
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Languages = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
+            queryConstructed = true;
             break;
-
+        }
         case 7:
+        {
             setColor(YELLOW);
             cout << "    --> Enter new Actor: ";
             resetColor();
 
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Actor = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
+            queryConstructed = true;
             break;
-
+        }
 
         case 8:
+        {
             setColor(YELLOW);
             cout << "    --> Enter new Director: ";
             resetColor();
 
             getline(cin, newVal);
             sqlQuery = L"UPDATE Movies SET Director = N'" + wstring(newVal.begin(), newVal.end()) + L"' WHERE Title = N'" + OrigTitle + L"'";
+            queryConstructed = true;
             break;
-
+        }
         default:
             setColor(RED);
             cout << "\n     Invalid choice. Try again.\n";
@@ -291,8 +362,7 @@ void editMovie() {
 
             _getch();
             continue;
-        }
-
+        
         if (dbManager.executeNonQuery(sqlQuery)) {
             setColor(LIGHT_GREEN);
             cout << "\n     Field updated successfully!\n";
@@ -313,11 +383,11 @@ void editMovie() {
         cin.ignore();
 
         if (again != "Yes" && again != "yes") {
-            edit = false;
+                edit = false;
+           }
         }
+
+        dbManager.disconnect();
+        _getch();
     }
-
-    dbManager.disconnect();
-    _getch();
 }
-
