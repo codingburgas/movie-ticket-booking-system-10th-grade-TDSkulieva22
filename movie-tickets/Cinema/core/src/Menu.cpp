@@ -172,58 +172,63 @@ void menu() {
                                 }
                                 else if (userKey == 13) {
                                     system("cls");
+
+                                    wstring username, password;
                                     if (userSelected == 0) {  //"LOGIN" is selected
-                                        wstring username, password;
-                                        wcout << "Enter username: ";
-                                        wcin >> username;
-
-                                        wcout << endl;
-
-                                        wcout << "Enter password: ";
-                                        wcin >> password;
-
-
-                                        if (User::userLogin(username, password)) {
+                                        User userObj;
+                                        userObj.userLoginPr(username, password);
+                                        if (userObj.userLogin(username, password)) {
+                                            setColor(LIGHT_GREEN);
                                             cout << "Login successful!" << endl;
-                                            system("pause");
-                                            userRunning = false;
-                                            system("cls");
-                                            User::userMainMenu();
+                                            resetColor();
+
+                                            _getch(); //Pause to show message
+                                            userRunning = false; // Exit user loop
+                                            userObj.userMainMenu(); // Go to the main user menu
+                                            roleRunning = false;
+                                            running = true;
                                         }
                                         else {
+                                            setColor(RED);
                                             cout << "Failed to login!" << endl;
-                                            system("pause");
+                                            resetColor();
+                                            _getch();
                                         }
                                     }
                                     else if (userSelected == 1) { //"SIGNUP" is selected
                                    
-                                        wstring username, password;
-                                        wcout << L"Enter username: ";
-                                        wcin >> username;
-
-                                        wcout << endl;
-
-                                        wcout << L"Enter password: ";
-                                        wcin >> password;
+                                        User userObj;
+                                        userObj.userRegisterPr(username, password);
 
                                         if (User::userExists(username)) {
+                                            setColor(RED);
                                             wcout << L"Username already registered!" << endl;
-                                            system("pause");
+                                            resetColor();
+                                            _getch();
                                         }
                                         else
                                         {
-                                            if (User::userRegister(username, password)) {
+                                            if (userObj.userRegister(username, password)) {
+                                                setColor(LIGHT_GREEN);
                                                 wcout << L"Registration successful!" << endl;
+                                                resetColor();
+
+                                                _getch();
+
                                                 userRunning = false;
-                                                system("cls");
-                                                User::userMainMenu();
+                                
+                                                userObj.userMainMenu();
+                                                roleRunning = false;
+                                                running = true;
                                             }
                                             else {
+                                                setColor(RED);
                                                 wcout << L"Registration failed!" << endl;
+                                                resetColor();
+
+                                                _getch();
                                             }
                                         }
-
-
                                     }
                                 }
                             }

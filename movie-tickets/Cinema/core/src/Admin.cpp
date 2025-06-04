@@ -19,7 +19,7 @@ void adminMenu(Movie*& moviesHead) {
 
     vector<string> userOptions = {
         "Add movie",
-        "Update a show",
+        "Update movie details",
         "Delete movie",
         "View reservations",
         "Change offers",

@@ -1,13 +1,9 @@
 #include "pch.h"
 #include "Filters.h"
-
-#include <iostream>
-#include <string>
 #include "Colors.h"
 #include "DrawText.h"
 #include "DatabaseManager.h"
 #include "Menu.h"
-using namespace std;
 
 void showMovieFilters() {
     system("cls");

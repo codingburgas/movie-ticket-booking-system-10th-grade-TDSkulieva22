@@ -40,9 +40,7 @@ void User::userRegisterPr(wstring& username, wstring& password) {
 	cinemaCity();
 	newLine(4);
 
-	setColor(WHITE);
-	cout << "========= USER REGISTRATION =========\n";
-	resetColor();
+
 
 	string inputUsername;
 	string inputPassword;
@@ -78,70 +76,13 @@ bool User::userRegister(const wstring& username, const wstring& password) {
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 	return (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO);
 
-	/*
-		
-	string username;
-	string password;
-
-
-	cout<< "=== Registration ===\n";
-	cout << "Enter username: ";
-	cin >> username;
-
-	for (const auto& user : users["users"]) {
-		if (user["username"] == username) {
-			cout << "Error: username already exists!\n";
-			return 0;
-		}
-	}
-
-	bool validPassword = false;
-	while (!validPassword) {
-		cout << "Enter password: ";
-		password = getHiddenPassword();
-
-		validPassword = isValidPassword(password);
-	}
-
-	json newUser = { {"username", username}, {"password", password} };
-	users["users"].push_back(newUser);
-
-	ofstream outFile("users.json");
-	if (outFile.is_open()) {
-		outFile << users.dump(4);  
-		outFile.close();
-		cout << "Successful registration!\n";
-		return 1;  
-	}
-	else {
-		cout << "Error saving user data.\n";
-		return -1;  
-	}
-
-	//wstring wUsername(username.begin(), username.end());
-	//wstring wPassword(password.begin(), password.end()); // Consider hashing here
-	//wstring insertQuery = L"INSERT INTO Users(Username, Pass) VALUES (N'" + wUsername + L"', N'" + wPassword + L"')";
-
-	//if (db.executeNonQuery(insertQuery)) {
-	//	cout << "Successful registration!\n";
-	//	return 1;
-	//}
-	//else {
-	//	cout << "Error saving user data to database.\n";
-	//	return -1;
-	//}
-
-	system("pause")*/
 }
 void User::userLoginPr(wstring& username, wstring& password) {
 	system("cls");
 
-	newLine(4);
-	cinemaCity();
 
-	setColor(WHITE);
-	cout << "============= USER LOGIN =============\n";
-	resetColor();
+	cinemaCity();
+	newLine(2);
 
 	string inputUsername;
 	string inputPassword;
@@ -157,17 +98,6 @@ void User::userLoginPr(wstring& username, wstring& password) {
 
 }
 bool User::userLogin(const wstring& username, const wstring& password) {
-	// string username;
-	// string password;
-	// 
-	// cout << "=== Login ===\n";
-	// cout << "Enter username: ";
-	// cin >> username;
-	// cout << "Enter password: ";
-	// password = getHiddenPassword();
-
-
-
 
 	SQLHSTMT hStmt;
 	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
@@ -188,25 +118,6 @@ bool User::userLogin(const wstring& username, const wstring& password) {
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 	return count > 0;
-
-
-	/*wstring wUsername(username.begin(), username.end());
-	wstring wPassword(password.begin(), password.end());
-
-	wstring query = L"SELECT COUNT(*) FROM Users WHERE Username = N'" + wUsername + L"' AND Pass = N'" + wPassword + L"'";
-
-	int count = db.executeScalar(query);
-	if (count == 1) {
-		cout << "Login successful!\n";
-		return true;
-	}
-	else {
-		cout << "Invalid username or password.\n";
-		return false;
-	}*/
-
-
-	//return autehnticate(users, username, password);
 
 	system("pause");
 }

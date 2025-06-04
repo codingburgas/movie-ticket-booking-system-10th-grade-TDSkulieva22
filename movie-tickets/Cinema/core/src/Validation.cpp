@@ -5,15 +5,6 @@
 #include "DrawText.h"
 #include "Colors.h"
 
-bool autehnticate(const json& users, const string& username, const string& password) {  //Authenticate a user based on the provided username and password
-	for (const auto& user : users["users"]) {
-		if (user["username"] == username && user["password"] == password) {
-			return true;
-		}
-	}
-	return false;
-}
-
 bool isValidPassword(const string& password) {
 	if (password.length() < 6) {
 		cout << "Password must be at least 6 characters long." << endl;
