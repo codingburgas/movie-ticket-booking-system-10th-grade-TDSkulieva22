@@ -24,3 +24,23 @@ void adminTitle() {
     printCentered("                                                                               ", 7);
     resetColor();
 }
+
+void loginTitle() {
+    setColor(LIGHT_BLUE);
+    printCentered("  _     ___   ____ ___ _   _ ", 10);
+    printCentered(" | |   / _ \\ / ___|_ _| \\ | |", 11);
+    printCentered(" | |  | | | | |  _ | ||  \\| |", 12);
+    printCentered(" | |__| |_| | |_| || || |\\  |", 13);
+    printCentered(" |_____\\___/ \\____|___|_| \\_|", 14);
+    resetColor();
+}
+
+void signUpTitle() {
+    setColor(LIGHT_BLUE);
+    printCentered("  ____ ___ ____ _   _   _   _ ____  ", 10);
+    printCentered(" / ___|_ _/ ___| \\ | | | | | |  _ \\ ", 11);
+    printCentered(" \\___ \\| | |  _|  \\| | | | | | |_) |", 12);
+    printCentered("  ___) | | |_| | |\\  | | |_| |  __/ ", 13);
+    printCentered(" |____/___\\____|_| \\_|  \\___/|_|    ", 14);
+    resetColor();
+}

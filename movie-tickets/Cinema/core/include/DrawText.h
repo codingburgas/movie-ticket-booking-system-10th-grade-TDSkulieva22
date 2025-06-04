@@ -3,3 +3,5 @@
 
 void cinemaCity();
 void adminTitle();
+void loginTitle();
+void signUpTitle();

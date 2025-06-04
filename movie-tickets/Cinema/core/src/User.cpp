@@ -38,19 +38,24 @@ void User::userRegisterPr(wstring& username, wstring& password) {
 	system("cls");
 
 	cinemaCity();
-	newLine(4);
 
-
+	signUpTitle();
+	newLine(3);
 
 	string inputUsername;
 	string inputPassword;
 
-	cout << "Enter username: ";
-	cin >> inputUsername;
+	setColor(YELLOW);
+	cout << "    --> Enter username: ";
+	resetColor();
+	getline(cin, inputUsername);
+	
 
 	bool valid = false;
 	while (!valid) {
-		cout << "Enter password (Min 6 chars, 1 uppercase, 1 digit, 1 special): ";
+		setColor(YELLOW);
+		cout << "    --> Enter password (Min 6 chars, 1 uppercase, 1 digit, 1 special): ";
+		resetColor();
 		inputPassword = getHiddenPassword();
 		valid = isValidPassword(inputPassword);
 	}
@@ -62,7 +67,10 @@ void User::userRegisterPr(wstring& username, wstring& password) {
 bool User::userRegister(const wstring& username, const wstring& password) {
 
 	if (userExists(username)) {
+		setColor(RED);
 		wcout << L"User already registered!" << endl;
+		resetColor();
+
 		return false;
 	}
 
@@ -82,15 +90,22 @@ void User::userLoginPr(wstring& username, wstring& password) {
 
 
 	cinemaCity();
-	newLine(2);
+
+	loginTitle();
+	newLine(3);
 
 	string inputUsername;
 	string inputPassword;
 
-	cout << "Enter username: ";
-	cin >> inputUsername;
+	setColor(YELLOW);
+	cout << "    --> Enter username: ";
+	resetColor();
+	getline(cin, inputUsername);
 
-	cout << "Enter password: ";
+	setColor(YELLOW);
+	cout << "    --> Enter password: ";
+	resetColor();
+
 	inputPassword = getHiddenPassword();
 
 	username = wstring(inputUsername.begin(), inputUsername.end());
