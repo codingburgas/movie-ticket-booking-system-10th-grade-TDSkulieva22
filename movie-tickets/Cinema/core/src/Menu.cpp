@@ -102,7 +102,6 @@ void displayUserOptions(int selected) {
 }
 
 void menu() {
-    Movie* moviesHead = nullptr;
     int selected = 0;
     bool running = true;
     while (running) {
@@ -141,10 +140,16 @@ void menu() {
                     case 13:
                         if (roleSelected == 0) {
                             system("cls");
-                            if (isAdmin()) {
-                                adminMenu(moviesHead);
-                                running = true;  //Go back to the main menu
+
+                            Admin adminManager;
+                            if (adminManager.adminLogin()) {
+                                adminManager.adminMenu();
+                                running = true;
                             }
+                            //if (isAdmin()) {
+                            //    adminMenu(moviesHead);
+                            //    running = true;  //Go back to the main menu
+                            //}
                             else {
                                 cout << "Log in failed" << endl;
                                 running = true;

@@ -4,16 +4,68 @@
 #include "DrawText.h"
 #include "Movies.h"
 #include "Filters.h"
+#include "Colors.h"
+#include "Validation.h"
+#include "DatabaseManager.h"
+#include "Offers.h"
 
-bool adminLogin(string username,string password) {
-	 string Admin_User = "admin";
-	 string Admin_Pass = "admin";
-
-	return (username == Admin_User && password == Admin_Pass);
-
+//bool adminLogin(string username,string password) {
+//	 string Admin_User = "admin";
+//	 string Admin_Pass = "admin";
+//
+//	return (username == Admin_User && password == Admin_Pass);
+//
+//}
+bool Admin::checkAdminCredentials(const string& username, const string& password) {
+    string Admin_User = "admin";
+    string Admin_Pass = "admin";
+    return (username == Admin_User && password == Admin_Pass);
 }
 
-void adminMenu(Movie*& moviesHead) {
+bool Admin::adminLogin() {
+    string username;
+    string password;
+    int attempts = 0;
+
+    while (attempts < 3) {
+        system("cls");
+        adminTitle(); // Use your existing adminTitle function
+        newLine(2);
+
+        setColor(YELLOW);
+        cout << "      -> Enter admin username: ";
+        resetColor();
+        cin >> username;
+
+        setColor(YELLOW);
+        cout << "      -> Enter admin password: ";
+        resetColor();
+        password = getHiddenPassword(); 
+
+        if (checkAdminCredentials(username, password)) { // Use the private helper to verify
+            setColor(LIGHT_GREEN);
+            printCentered("Admin login successful!", 8);
+            resetColor();
+            _getch();
+            return true;
+        }
+        else {
+            attempts++;
+            newLine(2);
+            setColor(RED);
+            cout << "      !!! Incorrect username or password! " << (3 - attempts) << " attempts remaining." << endl;
+            resetColor();
+            Sleep(1300); // Pause for 1.3 seconds
+        }
+    }
+    setColor(RED);
+    printCentered("Too many failed login attempts. Exiting.", 8);
+    resetColor();
+    _getch();
+    return false; // Login failed after 3 attempts
+}
+
+void Admin::adminMenu() {
     int selected = 0;
     bool adminRunning = true;
 
@@ -73,9 +125,11 @@ void adminMenu(Movie*& moviesHead) {
                 break;
             case 4:
                 cout << "Change offers...\n";
+                this->manageOffers();
                 break;
             case 5:
                 cout << "Exiting Admin Menu...\n";
+                
                 adminRunning = false;
                 break;
             }
@@ -83,3 +137,4 @@ void adminMenu(Movie*& moviesHead) {
         }
     }
 }
+

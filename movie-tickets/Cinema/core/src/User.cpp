@@ -182,7 +182,9 @@ void User::userMainMenu()
 			case 4:
 				//cout << "Showing current offers...\n";
 				//menuRunning = false;
-				userOffers();
+				User userObj;
+				userObj.userOffers();
+
 				break;
 			}
 
@@ -191,18 +193,70 @@ void User::userMainMenu()
 	}
 }
 
+//void User::userOffers() {
+//	system("cls");
+//	setColor(WHITE);
+//	cout << "========= CINEMA TICKET OFFERS =========\n";
+//	resetColor();
+//
+//	printCentered("1. Monday Special: Get 10% discount on all reserved tickets for Mondays.\n", 4);
+//	printCentered("2. Group Discount: If you reserve tickets for a group of up to 10 people, get 5% off the total.\n", 6);
+//	printCentered("3. Coupon Code Offer: Enter a valid coupon code (TICKET2%) at checkout to get 2% discount.\n", 8);
+//	printCentered("4. Loyalty Bonus: Buy 5 tickets and get the 6th ticket free!\n", 10);
+//
+//	setColor(YELLOW);
+//	printCentered("Note: Discounts cannot be combined.\n", 12);
+//	resetColor();
+//}
+
 void User::userOffers() {
 	system("cls");
-	setColor(WHITE);
-	cout << "========= CINEMA TICKET OFFERS =========\n";
+	cinemaCity();
+
+	newLine(4);
+
+	setColor(LIGHT_BLUE);
+	wcout << "                   ";
+	wcout << L"         ========= CINEMA TICKET OFFERS =========\n";
 	resetColor();
 
-	printCentered("1. Monday Special: Get 10% discount on all reserved tickets for Mondays.\n", 4);
-	printCentered("2. Group Discount: If you reserve tickets for a group of up to 10 people, get 5% off the total.\n", 6);
-	printCentered("3. Coupon Code Offer: Enter a valid coupon code (TICKET2%) at checkout to get 2% discount.\n", 8);
-	printCentered("4. Loyalty Bonus: Buy 5 tickets and get the 6th ticket free!\n", 10);
+	newLine(1);
 
-	setColor(YELLOW);
-	printCentered("Note: Discounts cannot be combined.\n", 12);
-	resetColor();
+	DatabaseManager dbManager; 
+	vector<OfferDetails> offers; 
+
+	if (!dbManager.connect()) { 
+		setColor(RED);
+		printCentered("Failed to connect to database.", 6);
+		resetColor();
+		_getch();
+		return; 
+	}
+
+	if (dbManager.getAllActiveOffers(offers)) { 
+		if (offers.empty()) {
+			setColor(YELLOW);
+			printCentered("No active offers available at the moment.", 8);
+			resetColor();
+		}
+		else {
+			int lineNum = 0;
+			for (const auto& offer : offers) {
+				setColor(GRAY);
+
+				wcout << L"       " << offer.offerId << L"   -->   " << offer.title << L"   -->   " << offer.description << endl;
+				resetColor();
+
+				lineNum++;
+			}
+		}
+	}
+	else {
+		setColor(RED);
+		printCentered("Error fetching offers from the database.", 8);
+		resetColor();
+	}
+
+	dbManager.disconnect(); 
+	_getch();
 }
