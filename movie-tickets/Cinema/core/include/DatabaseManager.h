@@ -1,9 +1,28 @@
+#pragma once
+
 #include "pch.h"
 #include "Admin.h"
 #include "Offers.h"
 
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
+
+struct MovieDetails {
+	wstring title;
+	wstring genre;
+	int duration = 0;
+	wstring story;
+	wstring category;
+	wstring languages;
+	wstring actor;
+	wstring director;
+};
+
+struct ShowtimeDetails {
+	wstring date;
+	wstring time;
+	wstring hall;
+};
 
 class DatabaseManager
 {
@@ -14,6 +33,9 @@ public:
 	void disconnect();
 	bool executeNonQuery(const wstring& query);
 	bool executeQuery(const wstring& query, int col);
-	bool getAllActiveOffers(std::vector<OfferDetails>& offers);
+	bool getAllActiveOffers(vector<OfferDetails>& offers);
 	bool updateOffer(int offerId, const wstring& newTitle, const wstring& newDescription, bool newIsActive);
+	vector<wstring> getMovieTitles(const wstring& sqlQuery);
+	bool getMovieDetails(const wstring& movieTitle, MovieDetails& details);
+	vector<ShowtimeDetails> getShowtimes(const wstring& programTableName, const wstring& movieTitle, const wstring& cinema, const wstring& date);
 };

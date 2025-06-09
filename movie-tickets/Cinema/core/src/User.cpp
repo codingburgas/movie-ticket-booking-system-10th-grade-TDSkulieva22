@@ -7,6 +7,8 @@
 #include "DatabaseManager.h"
 #include "Colors.h"
 #include "DrawText.h"
+#include "Filters.h"
+
 
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
@@ -168,7 +170,7 @@ void User::userMainMenu()
 
 			switch (menuSelected) {
 			case 0:
-				cout << "Showing program...\n";
+				showMovieFilters();
 				break;
 			case 1:
 				cout << "Seat selection...\n";

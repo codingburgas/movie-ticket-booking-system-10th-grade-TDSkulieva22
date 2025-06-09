@@ -7,97 +7,222 @@
 
 void showMovieFilters() {
     system("cls");
-    newLine(1);
+    cinemaCity();
+    newLine(5);
 
-    string town;
+    wstring town;
     setColor(LIGHT_BLUE);
-    cout << "    --> Enter your preferred town (Sofia, Burgas, Plovdiv, Varna): ";
+    wcout << L"    --> Enter your preferred town (Sofia, Burgas, Plovdiv, Varna): ";
     resetColor();
-    getline(cin, town);
+    getline(wcin, town);
 
-    string cinema;
+    wstring programTableName;
+    wstring cinema;
 
-    if (town == "Sofia" || town == "sofia") {
-        setColor(LIGHT_BLUE);
-        cout << "    --> Choose a cinema: Mall Paradise or The Mall: ";
-        resetColor();
-        getline(cin, cinema);
-        if (cinema != "Mall Paradise" && cinema != "The Mall") {
-            setColor(RED);
-            cout << "    Invalid cinema for Sofia.\n";
+    if (town == L"Sofia" || town == L"sofia") {
+        do {
+            setColor(LIGHT_BLUE);
+            wcout << L"    --> Choose a cinema: Mall Paradise or The Mall: ";
             resetColor();
-            return;
-        }
+            getline(wcin, cinema);
+            if (cinema != L"Mall Paradise" && cinema != L"The Mall") {
+                setColor(RED);
+                wcout << L"    Invalid cinema for Sofia.\n";
+
+                resetColor();
+            }
+        } while (cinema != L"Mall Paradise" && cinema != L"The Mall");
+
+        programTableName = L"SofiaProgram";
     }
-    else if (town == "Burgas" || town == "burgas") {
-        setColor(LIGHT_BLUE);
-        cout << "    --> Choose a cinema: Mall Galleria: ";
-        resetColor();
-        getline(cin, cinema);
-        if (cinema != "Mall Galleria") {
-            setColor(RED);
-            cout << "    Invalid cinema for Burgas.\n";
+    else if (town == L"Burgas" || town == L"burgas") {
+        do {
+            setColor(LIGHT_BLUE);
+            wcout << L"    --> Choose a cinema- Mall Galleria: ";
             resetColor();
-            return;
-        }
+            getline(wcin, cinema);
+            if (cinema != L"Mall Galleria") {
+                setColor(RED);
+                wcout << L"    Invalid cinema for Burgas.\n";
+
+                resetColor();
+            }
+        } while (cinema != L"Mall Galleria");
+
+        programTableName = L"BurgasProgram";
     }
-    else if (town == "Plovdiv" || town == "plovdiv") {
-        setColor(LIGHT_BLUE);
-        cout << "    --> Choose a cinema: Plovdiv Plaza or Mall Plovdiv: ";
-        resetColor();
-        getline(cin, cinema);
-        if (cinema != "Plovdiv Plaza" && cinema != "Mall Plovdiv") {
-            setColor(RED);
-            cout << "    Invalid cinema for Plovdiv.\n";
+    else if (town == L"Plovdiv" || town == L"plovdiv") {
+        do {
+            setColor(LIGHT_BLUE);
+            wcout << L"    --> Choose a cinema- Plovdiv Plaza or Mall Plovdiv: ";
             resetColor();
-            return;
-        }
+            getline(wcin, cinema);
+            if (cinema != L"Plovdiv Plaza" && cinema != L"Mall Plovdiv") {
+                setColor(RED);
+                wcout << L"    Invalid cinema for Plovdiv.\n";
+
+                resetColor();
+            }
+        } while (cinema != L"Plovdiv Plaza" && cinema != L"Mall Plovdiv");
+
+        programTableName = L"PlovdivProgram";
     }
-    else if (town == "Varna" || town == "varna") {
-        setColor(LIGHT_BLUE);
-        cout << "    --> Choose a cinema: Mall Varna: ";
-        resetColor();
-        getline(cin, cinema);
-        if (cinema != "Mall Varna") {
-            setColor(RED);
-            cout << "    Invalid cinema for Varna.\n";
+    else if (town == L"Varna" || town == L"varna") {
+        do {
+            setColor(LIGHT_BLUE);
+            wcout << L"    --> Choose a cinema- Mall Varna: ";
             resetColor();
-            return;
-        }
+            getline(wcin, cinema);
+            if (cinema != L"Mall Varna") {
+                setColor(RED);
+                wcout << L"    Invalid cinema for Varna.\n";
+
+                resetColor();
+            }
+        } while (cinema != L"Mall Varna");
+        
+        
+        programTableName = L"VarnaProgram";
     }
     else {
         setColor(RED);
-        cout << "    Invalid town selected.\n";
+        wcout << L"    Invalid town selected.\n";
         resetColor();
         return;
     }
 
-    string date;
+    wstring date;
     setColor(LIGHT_BLUE);
-    cout << "    --> Choose a date (2025-07-14, 2025-07-15, 2025-07-16, 2025-07-17, 2025-07-18): ";
+    wcout << L"    --> Choose a date (2025-07-14, 2025-07-15, 2025-07-16, 2025-07-17, 2025-07-18): ";
     resetColor();
-    getline(cin, date);
-    if (date != "2025-07-14" && date != "2025-07-15" && date != "2025-07-16" && date != "2025-07-17" && date != "2025-07-18") {
+    getline(wcin, date);
+    if (date != L"2025-07-14" && date != L"2025-07-15" && date != L"2025-07-16" && date != L"2025-07-17" && date != L"2025-07-18") {
         setColor(RED);
-        cout << "    Invalid date selected.\n";
+        wcout << L"    Invalid date selected.\n";
         resetColor();
         return;
     }
 
-    string genre;
+    wstring genre;
     setColor(LIGHT_BLUE);
-    cout << "    --> Do you want a specific genre? (Enter genre or 'all' for all movies): ";
+    wcout << L"    --> Do you want a specific genre? (Enter genre or 'all' for all movies): ";
     resetColor();
-    getline(cin, genre);
+    getline(wcin, genre);
 
-    
-    cout << "\nSelected Filters:\n";
-    cout << "Town: " << town << "\n";
-    cout << "Cinema: " << cinema << "\n";
-    cout << "Date: " << date << "\n";
-    cout << "Genre: " << genre << "\n";
+    wstring sqlQuery = L"SELECT DISTINCT M.Title "
+        L"FROM Movies AS M "
+        L"JOIN [CinemaDB].[dbo].[" + programTableName + L"] AS P ON M.MovieId = P.MovieId "
+        L"WHERE P.Location = N'" + cinema + L"' "
+        L"AND P.Date = N'" + date + L"'";
 
+    if (genre != L"all" && !genre.empty()) {
+        sqlQuery += L" AND M.Genre = N'" + genre + L"'";
+    }
+    sqlQuery += L" ORDER BY M.Title;";
+
+    DatabaseManager dbManager;
+    vector<wstring> movieTitles;
+
+    if (dbManager.connect()) {
+        movieTitles = dbManager.getMovieTitles(sqlQuery);
+        
+        if (movieTitles.empty()) {
+            setColor(YELLOW);
+            wcout << L"    No movies found matching your criteria.\n";
+            resetColor();
+            dbManager.disconnect();
+            _getch();
+            return;
+        }
+        
+        system("cls");
+        newLine(1);
+        setColor(LIGHT_GREEN);
+        wcout << L"    --- Available Movies ---\n\n";
+        resetColor();
+
+        for (int i = 0; i < movieTitles.size(); ++i) {
+            wcout << L"    " << (i + 1) << L". " << movieTitles[i] << L"\n";
+        }
+
+        newLine(1);
+        setColor(LIGHT_BLUE);
+        wcout << L"    --> Enter the number of the movie to see details (0 to go back): ";
+        resetColor();
+        
+        int movieChoice;
+        wcin >> movieChoice;
+        wcin.ignore();
+
+        if (movieChoice == 0) {
+            dbManager.disconnect();
+            return;
+        }
+
+        if (movieChoice > 0 && movieChoice <= movieTitles.size()) {
+            wstring selectedMovieTitle = movieTitles[movieChoice - 1];
+
+            MovieDetails details;
+
+            if (dbManager.getMovieDetails(selectedMovieTitle, details)) {
+                system("cls");
+                newLine(1);
+                setColor(LIGHT_GREEN);
+                wcout << L"    --- Movie Details ---\n\n";
+                resetColor();
+
+                vector<ShowtimeDetails> showtimes = dbManager.getShowtimes(programTableName, selectedMovieTitle, cinema, date);
+                displayMovieInfo(details, showtimes);
+            }
+            else {
+                setColor(RED);
+                wcout << L"    Failed to retrieve movie details.\n";
+                resetColor();
+            }
+        }
+        else {
+            setColor(RED);
+            wcout << L"    Invalid movie choice.\n";
+            resetColor();
+        }
+        dbManager.disconnect();
+    }
+    else {
+        setColor(RED);
+        wcout << L"\n    Failed to connect to the database.\n";
+        resetColor();
+    }
     _getch();
 }
 
+void displayMovieInfo(const MovieDetails& details, const vector<ShowtimeDetails>& showtimes) {
+    system("cls");
+    newLine(1);
+    setColor(LIGHT_GREEN);
+    wcout << L"    --- Movie Details ---\n\n";
+    resetColor();
 
+    wcout << L"    Title: " << details.title << L"\n";
+    wcout << L"    Genre: " << details.genre << L"\n";
+    wcout << L"    Duration: " << details.duration << L" minutes\n";
+    wcout << L"    Story: " << details.story << L"\n";
+    wcout << L"    Category: " << details.category << L"\n";
+    wcout << L"    Languages: " << details.languages << L"\n";
+    wcout << L"    Actor: " << details.actor << L"\n";
+    wcout << L"    Director: " << details.director << L"\n";
+
+    if (!showtimes.empty()) {
+        wcout << L"\n    --- Showtimes ---\n";
+        for (const auto& showtime : showtimes) {
+            wstring shortTime = showtime.time.substr(0, 5);
+            wcout << L"    Date: " << showtime.date
+                << L", Time: " << shortTime
+                << L", Hall: " << showtime.hall << L"\n";
+        }
+    }
+    else {
+        setColor(YELLOW);
+        wcout << L"    No showtimes found for this movie at the selected cinema and date.\n";
+        resetColor();
+    }
+}
