@@ -128,10 +128,7 @@ void Admin::adminMenu() {
                 this->manageOffers();
                 break;
             case 5:
-                cout << "Exiting Admin Menu...\n";
-                
-                adminRunning = false;
-                break;
+                return;
             }
             system("pause");
         }

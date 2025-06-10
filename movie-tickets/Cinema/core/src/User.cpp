@@ -149,7 +149,8 @@ void User::userMainMenu()
 		"Select a seat",
 		"Cancel reservation",
 		"Your tickets",
-		"See offers"
+		"See offers",
+		"Exit"
 	};
 
 	while (menuRunning) {
@@ -188,8 +189,10 @@ void User::userMainMenu()
 				userObj.userOffers();
 
 				break;
-			}
 
+			case 5:
+				return;
+			}
 			system("pause");
 		}
 	}
