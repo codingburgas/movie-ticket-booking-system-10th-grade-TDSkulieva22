@@ -1,4 +1,3 @@
-#define UNICODE
 #include "pch.h"
 #include "User.h"
 #include "Validation.h"
@@ -8,7 +7,7 @@
 #include "Colors.h"
 #include "DrawText.h"
 #include "Filters.h"
-
+#include "Booking.h"
 
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
@@ -174,8 +173,24 @@ void User::userMainMenu()
 				showMovieFilters();
 				break;
 			case 1:
-				cout << "Seat selection...\n";
+			{
+				Booking bookTicket(10, 10);
+				bookTicket.displaySeats();
+				cout << "How many tickets? ";
+				int numTickets;
+				cin >> numTickets;
+
+				int row, col;
+
+				for (int i = 0; i < numTickets; i++) {
+					cout << "Ticket number " << i << " : ";
+					cin >> row >> col;
+					bookTicket.reserveSeat(row, col);
+					system("clr");
+					bookTicket.displaySeats();
+				}
 				break;
+			}
 			case 2:
 				cout << "Cancelling reservation...\n";
 				break;

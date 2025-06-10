@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="include\Admin.h" />
+    <ClInclude Include="include\Booking.h" />
     <ClInclude Include="include\Colors.h" />
     <ClInclude Include="include\DatabaseManager.h" />
     <ClInclude Include="include\DrawText.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Admin.cpp" />
+    <ClCompile Include="src\Booking.cpp" />
     <ClCompile Include="src\Colors.cpp" />
     <ClCompile Include="src\DatabaseManager.cpp" />
     <ClCompile Include="src\DrawText.cpp" />

@@ -4,7 +4,7 @@
 #include "Validation.h"
 #include "pch.h"
 #include "DatabaseManager.h"
-
+#include "Booking.h"
 
 void gotoxy(int x, int y) {
 	COORD coord = { static_cast<SHORT>(x),static_cast<SHORT>(y) };
@@ -20,14 +20,7 @@ int main()
 		return 1;
 	}
 
-	// wstring name = L"testlogin";
-	// wstring pass = L"testparola";
-	// wstring insertQuery = L"  INSERT INTO Users(Username,Pass) VALUES (N'" + name + L"',N'" + pass + L"') ";
-	// wcout<<db.executeNonQuery(insertQuery);
 
-	/*db.executeQuery(L"SELECT * FROM Users",2);
-	db.executeQuery(L"SELECT * FROM Users", 3);
-	*/
 
 
 
