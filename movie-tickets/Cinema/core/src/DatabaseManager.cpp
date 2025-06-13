@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Offers.h"
 #include "DatabaseManager.h"
+#include "Booking.h"
 
 SQLHENV hEnv = nullptr;
 SQLHDBC hDbc = nullptr;
@@ -223,4 +224,60 @@ vector<ShowtimeDetails> DatabaseManager::getShowtimes(const wstring& programTabl
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmtProgram);
 	return showtimes;
+}
+
+vector<Seat> DatabaseManager::getSeatMap(int programId) {
+	vector<Seat> seats;
+	SQLHSTMT hStmt = SQL_NULL_HANDLE;
+
+	wstring query = L"SELECT seat_row, seat_number, status FROM SeatReservations WHERE program_id = " + to_wstring(programId);
+
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+	if (SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS) != SQL_SUCCESS) {
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+		return seats;
+	}
+
+	SQLINTEGER row, number, status;
+	while (SQLFetch(hStmt) == SQL_SUCCESS) {
+		SQLGetData(hStmt, 1, SQL_C_SLONG, &row, 0, nullptr);
+		SQLGetData(hStmt, 2, SQL_C_SLONG, &number, 0, nullptr);
+		SQLGetData(hStmt, 3, SQL_C_SLONG, &status, 0, nullptr);
+		seats.push_back({ row, number, status == 1 });
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	return seats;
+}
+
+bool DatabaseManager::reserveSeats(int programId, const vector<Seat>& selectedSeats, int userId) {
+	for (const auto& seat : selectedSeats) {
+		wstring query = L"INSERT INTO SeatReservations (program_id, seat_row, seat_number, user_id, reservation_time, status) VALUES (" +
+			to_wstring(programId) + L", " + to_wstring(seat.row) + L", " + to_wstring(seat.number) + L", " +
+			to_wstring(userId) + L", '2025-12-12',1)";
+		if (!executeNonQuery(query)) return false;
+	}
+	return true;
+}
+
+int DatabaseManager::getProgramId(const wstring& tableName, const wstring& movieTitle, const wstring& location, const wstring& date) {
+	SQLHSTMT hStmt = SQL_NULL_HANDLE;
+	int programId = -1;
+
+	wstring query =
+		L"SELECT TOP 1 pm.id "
+		L"FROM ProgramMap pm "
+		L"JOIN [" + tableName + L"] p ON pm.program_table_id = p.Id AND pm.table_name = N'" + tableName + L"' "
+		L"JOIN Movies m ON p.MovieId = m.MovieId "
+		L"WHERE m.Title = N'" + movieTitle + L"' AND p.Location = N'" + location + L"' AND p.Date = N'" + date + L"'";
+
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+	if (SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS) == SQL_SUCCESS) {
+		if (SQLFetch(hStmt) == SQL_SUCCESS) {
+			SQLGetData(hStmt, 1, SQL_C_SLONG, &programId, 0, nullptr);
+		}
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	return programId;
 }

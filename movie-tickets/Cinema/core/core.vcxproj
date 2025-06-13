@@ -151,6 +151,7 @@
     <ClInclude Include="include\Movies.h" />
     <ClInclude Include="include\Offers.h" />
     <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\Seat.h" />
     <ClInclude Include="include\User.h" />
     <ClInclude Include="include\Validation.h" />
     <ClInclude Include="pch.h" />

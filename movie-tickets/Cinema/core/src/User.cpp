@@ -12,6 +12,8 @@
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
 
+int User::currentUserId = 1;
+
 bool User::userExists(const wstring& username) {
 	SQLHSTMT hStmt;
 	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
@@ -174,21 +176,14 @@ void User::userMainMenu()
 				break;
 			case 1:
 			{
-				Booking bookTicket(10, 10);
-				bookTicket.displaySeats();
-				cout << "How many tickets? ";
-				int numTickets;
-				cin >> numTickets;
-
-				int row, col;
-
-				for (int i = 0; i < numTickets; i++) {
-					cout << "Ticket number " << i << " : ";
-					cin >> row >> col;
-					bookTicket.reserveSeat(row, col);
-					system("clr");
-					bookTicket.displaySeats();
+				DatabaseManager db;
+				if (!db.connect()) {
+					cout << "Failed to connect." << endl;
+					break;
 				}
+
+				reserveTicket(User::currentUserId);
+				db.disconnect();
 				break;
 			}
 			case 2:

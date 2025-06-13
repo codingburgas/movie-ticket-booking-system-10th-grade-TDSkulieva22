@@ -3,6 +3,8 @@
 #include "pch.h"
 #include "Admin.h"
 #include "Offers.h"
+#include "Booking.h"
+#include "Seat.h"
 
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
@@ -38,4 +40,7 @@ public:
 	vector<wstring> getMovieTitles(const wstring& sqlQuery);
 	bool getMovieDetails(const wstring& movieTitle, MovieDetails& details);
 	vector<ShowtimeDetails> getShowtimes(const wstring& programTableName, const wstring& movieTitle, const wstring& cinema, const wstring& date);
+	vector<Seat> getSeatMap(int programId);
+	bool reserveSeats(int programId, const vector<Seat>& seats, int userId);
+	int getProgramId(const wstring& tableName, const wstring& movieTitle, const wstring& location, const wstring& date);
 };

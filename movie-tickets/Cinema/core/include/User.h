@@ -12,6 +12,8 @@ public:
 	static void userRegisterPr(wstring& username, wstring& password);
 	static void userLoginPr(wstring& username, wstring& password);
 	void userOffers();
+private:
+	static int currentUserId;
 };
 
 
