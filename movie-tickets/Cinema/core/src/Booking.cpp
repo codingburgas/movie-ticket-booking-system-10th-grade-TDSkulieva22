@@ -5,33 +5,21 @@
 #include "DatabaseManager.h"
 #include "Menu.h"
 
-//Booking::Booking(int rows, int cols) : rows(rows), cols(cols) {
-//	seats = vector<vector<char>>(rows, vector<char>(cols, 'G'));
-//}
-//
-//void Booking::displaySeats() const {
-//	for (const auto& row : seats) {
-//		for (char seat : row) {
-//			cout << (seat == 'G' ? "\033[32m💺\033[0m " : "\033[31m💺\033[0m ");
-//		}
-//		cout << endl;
-//	}
-//}
-//
-//
-//
-//void Booking::reserveSeat(int row, int col) {
-//	if (row >= 0 && row < rows && col >= 0 && col < cols && seats[row][col] == 'G') {
-//		seats[row][col] = 'R';
-//	}
-//}
-//
-//void Booking::freeSeat(int row, int col) {
-//	if (row >= 0 && row < rows && col >= 0 && col < cols && seats[row][col] == 'R') {
-//		seats[row][col] = 'G';
-//	}
-//}
-//
+map<wstring, vector<wstring>> validLocations = {
+    {L"Sofia", {L"The Mall", L"Paradise Mall"}},
+    {L"Plovdiv", {L"Plovdiv Plaza", L"Plovdiv Mall"}},
+    {L"Burgas", {L"Galleria Mall"}},
+    {L"Varna", {L"Varna Mall"}}
+};
+
+vector<wstring> validDates = {
+    L"2025-07-14",
+    L"2025-07-15",
+    L"2025-07-16",
+    L"2025-07-17",
+    L"2025-07-18"
+};
+
 void printSeatMap(const vector<Seat>& seats) {
     wstring map[10][10];
 
@@ -56,9 +44,77 @@ void reserveTicket(int userId) {
     DatabaseManager db;
     ReservationInput input;
 
-    wcout << L"Enter town: "; getline(wcin, input.city);
-    wcout << L"Enter location: "; getline(wcin, input.location);
-    wcout << L"Enter date (YYYY-MM-DD): "; getline(wcin, input.date);
+    cinemaCity();
+    newLine(4);
+
+    while (true) {
+        setColor(BLUE);
+        wcout << L"    --> Enter city: ";
+        resetColor();
+        getline(wcin, input.city);
+
+        if (validLocations.count(input.city) == 0) {
+            setColor(RED);
+            newLine(1);
+            wcout << L"   !!! Invalid city. Available options: Sofia, Plovdiv, Burgas, Varna\n";
+            resetColor();
+            newLine(1);
+        }
+        else {
+            break;
+        }
+    }
+
+    while (true) {
+        setColor(BLUE);
+        wcout << L"    --> Enter location: ";
+        resetColor();
+
+        getline(wcin, input.location);
+
+        const auto& locations = validLocations[input.city];
+        if (find(locations.begin(), locations.end(), input.location) == locations.end()) {
+            setColor(RED);
+            newLine(1);
+            wcout << L"   !!! Invalid location for " << input.city << L". Available options:\n";
+            resetColor();
+            newLine(1);
+            for (const auto& loc : locations) {
+                setColor(YELLOW);
+                wcout << L"   - " << loc << endl;
+                resetColor();
+            }
+            newLine(1);
+        }
+        else {
+            break;
+        }
+    }
+
+    while (true) {
+        setColor(BLUE);
+        wcout << L"    --> Enter date (YYYY-MM-DD): ";
+        resetColor();
+
+        getline(wcin, input.date);
+
+        if (find(validDates.begin(), validDates.end(), input.date) == validDates.end()) {
+            setColor(RED);
+            newLine(1);
+            wcout << L"   !!! Invalid date. Available dates are:\n";
+            resetColor();
+            newLine(1);
+            for (const auto& d : validDates) {
+                setColor(YELLOW);
+                wcout << L"   - " << d << endl;
+                resetColor();
+            }
+            newLine(1);
+        }
+        else {
+            break;
+        }
+    }
 
     wstring programTable = input.city + L"Program";
 

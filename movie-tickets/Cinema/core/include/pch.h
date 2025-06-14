@@ -12,7 +12,7 @@
 #include <windows.h>
 #include <sstream>
 #include <sqlext.h>
-
+#include <map>
 
 using namespace std;
 
