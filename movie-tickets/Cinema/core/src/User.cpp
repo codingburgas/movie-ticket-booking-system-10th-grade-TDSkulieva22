@@ -193,8 +193,6 @@ void User::userMainMenu()
 				cout << "Displaying your tickets...\n";
 				break;
 			case 4:
-				//cout << "Showing current offers...\n";
-				//menuRunning = false;
 				User userObj;
 				userObj.userOffers();
 

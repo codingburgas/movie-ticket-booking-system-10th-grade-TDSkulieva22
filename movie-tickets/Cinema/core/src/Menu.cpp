@@ -184,7 +184,8 @@ void menu() {
                                         userObj.userLoginPr(username, password);
                                         if (userObj.userLogin(username, password)) {
                                             setColor(LIGHT_GREEN);
-                                            cout << "Login successful!" << endl;
+                                            newLine(1);
+                                            cout << "      Login successful!" << endl;
                                             resetColor();
 
                                             _getch(); //Pause to show message
@@ -195,7 +196,8 @@ void menu() {
                                         }
                                         else {
                                             setColor(RED);
-                                            cout << "Failed to login!" << endl;
+                                            newLine(1);
+                                            cout << "      Failed to login!" << endl;
                                             resetColor();
                                             _getch();
                                         }

@@ -23,21 +23,32 @@ vector<wstring> validDates = {
 void printSeatMap(const vector<Seat>& seats) {
     wstring map[10][10];
 
-    for (int i = 0; i < 10; i++)
-        for (int j = 0; j < 10; j++)
-            map[i][j] = L"1";
-
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {          
+            map[i][j] = L"(   )";
+        }
+    }
     for (const auto& seat : seats) {
-        if (seat.isReserved)
-            map[seat.row - 1][seat.number - 1] = L"X";
+        if (seat.isReserved) {
+            map[seat.row - 1][seat.number - 1] = L"( X )";
+        }
     }
 
     for (int i = 0; i < 10; i++) {
-        wcout << L"Row " << i + 1 << L": ";
-        for (int j = 0; j < 10; j++)
+        resetColor();
+        wcout << "         " << L"   Row " << i + 1 << L": ";
+        for (int j = 0; j < 10; j++){
+            if (map[i][j] == L"( X )") {
+                setColor(RED);
+            }
+            else {
+                setColor(GREEN);
+            }
             wcout << map[i][j] << " ";
-        wcout << endl;
+        }
+        newLine(2);
     }
+    resetColor();
 }
 
 void reserveTicket(int userId) {
@@ -125,12 +136,27 @@ void reserveTicket(int userId) {
 
     vector<wstring> movies = db.getMovieTitles(query);
 
+    system("cls");
+    cinemaCity();
+
+    setColor(GREEN);
+    printCentered("These are all the available movies that meet your requirements : ", 10);
+    resetColor();
+
+    newLine(3);
+
     for (size_t i = 0; i < movies.size(); i++) {
-        wcout << i + 1 << L". " << movies[i] << endl;
+        wcout <<"     " << i + 1 << L". " << movies[i] << endl;
     }
     int movieIndex;
-    wcout << L"Choose a movie: ";
-    wcin >> movieIndex; wcin.ignore();
+    newLine(2);
+
+    setColor(YELLOW);
+    wcout << L"    --> Choose a movie: ";
+    resetColor();
+
+    wcin >> movieIndex; 
+    wcin.ignore();
     input.movieTitle = movies[movieIndex - 1];
 
     int programId = db.getProgramId(programTable, input.movieTitle, input.location, input.date);
@@ -140,16 +166,31 @@ void reserveTicket(int userId) {
 
 
     vector<Seat> currentSeats = db.getSeatMap(programId);
+
+    system("cls");
+    cinemaCity();
+    newLine(3);
+
     printSeatMap(currentSeats);
 
     int numTickets;
-    wcout << L"Number of tickets: "; wcin >> numTickets;
+
+    newLine(2);
+    setColor(YELLOW);
+    wcout << L"    --> Number of tickets: "; 
+    resetColor();
+
+    wcin >> numTickets;
+    newLine(2);
 
     vector<Seat> selectedSeats;
     for (int i = 0; i < numTickets; i++) {
         int row, num;
-        wcout << L"Seat #" << i + 1 << L" - Row: "; wcin >> row;
-        wcout << L"Seat #" << i + 1 << L" - Number: "; wcin >> num;
+        wcout << "     " << L"Seat #" << i + 1 << L" - Row: ";
+        wcin >> row;
+
+        wcout << "     " << L"Seat #" << i + 1 << L" - Number: ";
+        wcin >> num;
 
         bool isFree = true;
         for (const auto& s : currentSeats)
@@ -160,17 +201,25 @@ void reserveTicket(int userId) {
             selectedSeats.push_back({ row, num, false });
         }
         else {
+            setColor(RED);
             wcout << L"This seat has already been booked. Choose another." << endl;
+            resetColor();
             i--;
         }
     }
 
     if (db.reserveSeats(programId, selectedSeats, userId)) {
         system("cls");
-        wcout << L"\n Successful reservation!\n\n";
+        cinemaCity();
+        setColor(YELLOW);
+        printCentered("Successful reservation!", 10);
+        newLine(2);
+        resetColor();
         printSeatMap(db.getSeatMap(programId));
     }
     else {
+        setColor(RED);
         wcout << L" Error.\n";
+        resetColor();
     }
 }
