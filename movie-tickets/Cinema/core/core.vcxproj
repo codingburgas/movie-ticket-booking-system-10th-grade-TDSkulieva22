@@ -150,6 +150,7 @@
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\Movies.h" />
     <ClInclude Include="include\Offers.h" />
+    <ClInclude Include="include\Payment.h" />
     <ClInclude Include="include\pch.h" />
     <ClInclude Include="include\Seat.h" />
     <ClInclude Include="include\User.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Movies.cpp" />
     <ClCompile Include="src\Offers.cpp" />
+    <ClCompile Include="src\Payment.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

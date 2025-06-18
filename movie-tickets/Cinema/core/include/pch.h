@@ -13,6 +13,7 @@
 #include <sstream>
 #include <sqlext.h>
 #include <map>
+#include <regex>
 
 using namespace std;
 

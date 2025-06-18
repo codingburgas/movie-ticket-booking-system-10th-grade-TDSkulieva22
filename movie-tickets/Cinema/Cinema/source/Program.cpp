@@ -5,6 +5,7 @@
 #include "pch.h"
 #include "DatabaseManager.h"
 #include "Booking.h"
+#include "Payment.h"
 
 void gotoxy(int x, int y) {
 	COORD coord = { static_cast<SHORT>(x),static_cast<SHORT>(y) };
@@ -14,17 +15,20 @@ void gotoxy(int x, int y) {
 int main()
 {
 
-	DatabaseManager db;
-	if (!db.connect()) {
-		wcout << L"Invalid connection" << endl;
-		return 1;
-	}
+ 	DatabaseManager db;
+ 	if (!db.connect()) {
+ 		wcout << L"Invalid connection" << endl;
+ 		return 1;
+ 	}
+ 
+ 
+ 
+ 
+ 
+ 	  hideCursor();
+ 	  menu();
+ 	  db.disconnect();
 
 
 
-
-
-	  hideCursor();
-	  menu();
-	  db.disconnect();
 }

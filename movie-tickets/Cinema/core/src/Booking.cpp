@@ -6,10 +6,10 @@
 #include "Menu.h"
 
 map<wstring, vector<wstring>> validLocations = {
-    {L"Sofia", {L"The Mall", L"Paradise Mall"}},
-    {L"Plovdiv", {L"Plovdiv Plaza", L"Plovdiv Mall"}},
-    {L"Burgas", {L"Galleria Mall"}},
-    {L"Varna", {L"Varna Mall"}}
+    {L"Sofia", {L"The Mall", L"Mall Paradise"}},
+    {L"Plovdiv", {L"Plovdiv Plaza", L"Mall Plovdiv"}},
+    {L"Burgas", {L"Mall Galleria"}},
+    {L"Varna", {L"Mall Varna"}}
 };
 
 vector<wstring> validDates = {
@@ -134,6 +134,10 @@ void reserveTicket(int userId) {
     input.movieTitle = movies[movieIndex - 1];
 
     int programId = db.getProgramId(programTable, input.movieTitle, input.location, input.date);
+
+    
+    auto result = db.getMovieHall(programTable, input.movieTitle,input.date);
+
 
     vector<Seat> currentSeats = db.getSeatMap(programId);
     printSeatMap(currentSeats);

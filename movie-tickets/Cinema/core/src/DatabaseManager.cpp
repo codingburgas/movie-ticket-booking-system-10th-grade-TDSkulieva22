@@ -281,3 +281,36 @@ int DatabaseManager::getProgramId(const wstring& tableName, const wstring& movie
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 	return programId;
 }
+
+vector<wstring> DatabaseManager::getMovieHall(const wstring& programTableName, const wstring& movieTitle, const wstring& date) {
+	vector<wstring> halls;
+	SQLHSTMT hStmt = SQL_NULL_HANDLE;
+
+
+	wstring query = L"SELECT DISTINCT Hall "
+		L"FROM [CinemaDB].[dbo].[" + programTableName + L"] "
+		L"WHERE MovieId = (SELECT MovieId FROM Movies WHERE Title = N'" + movieTitle + L"') "
+		L"AND [Date] = '" + date + L"';";
+
+	if (SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt) != SQL_SUCCESS) {
+		return halls;
+	}
+
+	if (SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS) != SQL_SUCCESS) {
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+		return halls;
+	}
+
+	SQLWCHAR hallBuffer[100];
+	SQLLEN hallLen;
+
+	SQLBindCol(hStmt, 1, SQL_C_WCHAR, hallBuffer, sizeof(hallBuffer), &hallLen);
+
+	while (SQLFetch(hStmt) == SQL_SUCCESS) {
+		halls.push_back(hallBuffer);
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	return halls;
+}
+
