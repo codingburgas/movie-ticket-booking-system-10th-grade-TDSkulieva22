@@ -175,21 +175,25 @@ void reserveTicket(int userId) {
 
     int numTickets;
 
-    newLine(2);
+    newLine(1);
     setColor(YELLOW);
     wcout << L"    --> Number of tickets: "; 
     resetColor();
 
     wcin >> numTickets;
-    newLine(2);
+    newLine(1);
 
     vector<Seat> selectedSeats;
     for (int i = 0; i < numTickets; i++) {
         int row, num;
-        wcout << "     " << L"Seat #" << i + 1 << L" - Row: ";
+        setColor(YELLOW);
+        wcout << "    " << L"--> Seat #" << i + 1 << L" - Row: ";
+        resetColor();
         wcin >> row;
 
-        wcout << "     " << L"Seat #" << i + 1 << L" - Number: ";
+        setColor(YELLOW);
+        wcout << "    " << L"--> Seat #" << i + 1 << L" - Number: ";
+        resetColor();
         wcin >> num;
 
         bool isFree = true;
@@ -204,6 +208,7 @@ void reserveTicket(int userId) {
             setColor(RED);
             wcout << L"This seat has already been booked. Choose another." << endl;
             resetColor();
+            newLine(1);
             i--;
         }
     }

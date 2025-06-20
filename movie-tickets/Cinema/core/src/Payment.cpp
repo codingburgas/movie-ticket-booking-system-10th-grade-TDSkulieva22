@@ -29,7 +29,18 @@ bool Payment::isValidExpiry(const string& expiry) {
 	return regex_match(expiry, expiry_regex);
 }
 void Payment::proccessCashPayment() {
-	cout << "Otidete edi kude si" << endl;
+	//wcout << L"\n\n=== Payment Receipt ===\n";
+	//wcout << L"Movie: " << movieTitle << endl;
+	//wcout << L"City: " << city << endl;
+	//wcout << L"Location: " << location << endl;
+	//wcout << L"Date: " << date << endl;
+	//wcout << L"Hall: " << hallNumber << endl;
+	//wcout << L"Seats: ";
+	//
+	//for (auto& seat : selectedSeats) wcout << seat.row << "-" << seat.number << L" ";
+	//wcout << L"\nReservation Number: " << reservationNumber << endl;
+	//wcout << L"Please pay with this reservation number at the counter.\n";
+	//wcout << L"=========================\n\n";
 }
 void Payment::processOnlinePayment() {
 	string cardNumber;
