@@ -22,6 +22,11 @@ void printCentered(const string& text, int y) {
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 	cout << text;
 }
+
+wstring to_wstring(const string& str) {
+    wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
+    return converter.from_bytes(str);
+}
 void newLine(int newLines)
 {
 	for (int i = 0; i < newLines; i++)

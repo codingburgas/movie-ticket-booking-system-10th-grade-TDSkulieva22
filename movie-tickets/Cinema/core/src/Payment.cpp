@@ -1,19 +1,29 @@
 #include "pch.h"
 #include "Payment.h"
+#include "Menu.h"
+#include "Colors.h"
+#include "DrawText.h"
 
 void Payment::startPayment() {
+	cinemaCity();
+	newLine(2); 
+
 	string paymentMethod;
-	cout << "cash/online";
+	cout << "    --> How would you like to pay? (cash or online)  ";
 	cin >> paymentMethod;
 
 	if (paymentMethod == "cash") {
+		system("cls");
 		proccessCashPayment();
 	}
 	else if (paymentMethod == "online") {
+		system("cls");
 		processOnlinePayment();
 	}
 	else {
+		setColor(RED);
 		cout << "Invalid method" << endl;
+		resetColor();
 	}
 }
 bool Payment::isValidCardNumber(const string& number) {
@@ -29,6 +39,9 @@ bool Payment::isValidExpiry(const string& expiry) {
 	return regex_match(expiry, expiry_regex);
 }
 void Payment::proccessCashPayment() {
+	cinemaCity();
+	newLine(2);
+
 	//wcout << L"\n\n=== Payment Receipt ===\n";
 	//wcout << L"Movie: " << movieTitle << endl;
 	//wcout << L"City: " << city << endl;
@@ -43,6 +56,9 @@ void Payment::proccessCashPayment() {
 	//wcout << L"=========================\n\n";
 }
 void Payment::processOnlinePayment() {
+	cinemaCity();
+	newLine(2);
+
 	string cardNumber;
 	string expiry;
 	string cvv;
@@ -50,26 +66,32 @@ void Payment::processOnlinePayment() {
 	double amount = 15;
 
 	cout << "Online transaction" << endl;
-	cout << "Enter card number (16 digits): ";
+
+	setColor(BLUE);
+	cout << "    --> Enter card number (#### #### #### ####): ";
+	resetColor();
+
 	cin.ignore();
 	getline(cin, cardNumber);
 
-	cout << "Enter expiry date: ";
+	setColor(BLUE);
+	cout << "    --> Enter expiry date (MM/YY): ";
+	resetColor();
+
 	getline(cin, expiry);
 
-	cout << "Enter CVV: ";
+	setColor(BLUE);
+	cout << "    --> Enter CVV (3 digits): ";
+	resetColor();
+
 	getline(cin, cvv);
 
-	if (!isValidCardNumber(cardNumber)) {
-		cout << "Invalid card number" << endl;
-	}
-	if (!isValidExpiry(expiry)) {
-		cout << "Invalid expiry date" << endl;
-	}
-
-	if (!isValidCVV(cvv)) {
-		cout << "Invalid dvv" << endl;
+	if (!isValidCardNumber(cardNumber) || !isValidExpiry(expiry) || !isValidCVV(cvv)) {
+		setColor(RED);
+		cout << "Payment failed due to invalid details.\n";
+		resetColor();
+		return;
 	}
 
-	cout << "Payment of " << amount << " is successfull" << endl;
+	cout << "    --> Payment of " << amount << " is successfull!" << endl;
 }

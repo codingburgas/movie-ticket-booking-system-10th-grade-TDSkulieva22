@@ -197,27 +197,89 @@ void showMovieFilters() {
 
 void displayMovieInfo(const MovieDetails& details, const vector<ShowtimeDetails>& showtimes) {
     system("cls");
-    newLine(1);
+
+    cinemaCity();
+    newLine(3);
+
     setColor(LIGHT_GREEN);
-    wcout << L"    --- Movie Details ---\n\n";
+    wcout << L"          --- Movie Details ---" << endl; 
     resetColor();
 
-    wcout << L"    Title: " << details.title << L"\n";
-    wcout << L"    Genre: " << details.genre << L"\n";
-    wcout << L"    Duration: " << details.duration << L" minutes\n";
-    wcout << L"    Story: " << details.story << L"\n";
-    wcout << L"    Category: " << details.category << L"\n";
-    wcout << L"    Languages: " << details.languages << L"\n";
-    wcout << L"    Actor: " << details.actor << L"\n";
-    wcout << L"    Director: " << details.director << L"\n";
+    newLine(1);
+    setColor(BLUE);
+    wcout << L"    Title: ";
+    resetColor();
+
+    wcout << details.title << L"\n";
+
+    setColor(BLUE);
+    wcout << L"    Genre: ";
+    resetColor();
+
+    wcout << details.genre << L"\n";
+
+    setColor(BLUE);
+    wcout << L"    Duration: ";
+    resetColor();
+
+    wcout << details.duration << L" minutes\n";
+
+    newLine(1);
+    setColor(BLUE);
+    wcout << L"    Story: ";
+    resetColor();
+
+    wcout << details.story << L"\n";
+    newLine(1);
+
+    setColor(BLUE);
+    wcout << L"    Category: ";
+    resetColor();
+
+    wcout << details.category << L"\n";
+
+    setColor(BLUE);
+    wcout << L"    Languages: ";
+    resetColor();
+
+    wcout << details.languages << L"\n";
+
+    setColor(BLUE);
+    wcout << L"    Actor: ";
+    resetColor();
+
+    wcout << details.actor << L"\n";
+
+    setColor(BLUE);
+    wcout << L"    Director: ";
+    resetColor();
+
+    wcout << details.director << L"\n";
 
     if (!showtimes.empty()) {
-        wcout << L"\n    --- Showtimes ---\n";
+        setColor(LIGHT_GREEN);
+        wcout << L"\n          --- Showtimes ---\n";
+        resetColor();
+        newLine(1);
         for (const auto& showtime : showtimes) {
             wstring shortTime = showtime.time.substr(0, 5);
-            wcout << L"    Date: " << showtime.date
-                << L", Time: " << shortTime
-                << L", Hall: " << showtime.hall << L"\n";
+            setColor(BLUE);
+            wcout << L"    Date: ";
+            resetColor();
+
+            wcout << showtime.date;
+
+            setColor(BLUE);
+            wcout << L", Time: ";
+            resetColor();
+
+            wcout << shortTime;
+
+            setColor(BLUE);
+            wcout << L", Hall: ";
+            resetColor();
+
+            wcout << showtime.hall << L"\n";
         }
     }
     else {
@@ -226,3 +288,5 @@ void displayMovieInfo(const MovieDetails& details, const vector<ShowtimeDetails>
         resetColor();
     }
 }
+
+
