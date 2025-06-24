@@ -195,7 +195,7 @@ void menu() {
 
                                             _getch(); //Pause to show message
                                             userRunning = false; // Exit user loop
-                                            userObj.userMainMenu(); // Go to the main user menu
+                                            userObj.userMainMenu(username); // Go to the main user menu
                                             roleRunning = false;
                                             running = true;
                                         }
@@ -229,7 +229,7 @@ void menu() {
 
                                                 userRunning = false;
                                 
-                                                userObj.userMainMenu();
+                                                userObj.userMainMenu(username);
                                                 roleRunning = false;
                                                 running = true;
                                             }

@@ -4,6 +4,7 @@
 #include "DrawText.h"
 #include "DatabaseManager.h"
 #include "Menu.h"
+#include <Payment.h>
 
 map<wstring, vector<wstring>> validLocations = {
     {L"Sofia", {L"The Mall", L"Mall Paradise"}},
@@ -182,7 +183,7 @@ void reserveTicket(int userId) {
 
     wcin >> numTickets;
     newLine(1);
-
+    int currentRow;
     vector<Seat> selectedSeats;
     for (int i = 0; i < numTickets; i++) {
         int row, num;
@@ -190,6 +191,7 @@ void reserveTicket(int userId) {
         wcout << "    " << L"--> Seat #" << i + 1 << L" - Row: ";
         resetColor();
         wcin >> row;
+        currentRow = row;
 
         setColor(YELLOW);
         wcout << "    " << L"--> Seat #" << i + 1 << L" - Number: ";
@@ -221,6 +223,12 @@ void reserveTicket(int userId) {
         newLine(2);
         resetColor();
         printSeatMap(db.getSeatMap(programId));
+
+        system("cls");
+        cinemaCity();
+        newLine(3);
+        Payment pm;
+        pm.startPayment(input.movieTitle, input.city, input.location, input.date, result, selectedSeats,currentRow, programTable);
     }
     else {
         setColor(RED);

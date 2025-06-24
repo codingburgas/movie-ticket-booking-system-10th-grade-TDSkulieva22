@@ -44,4 +44,5 @@ public:
 	bool reserveSeats(int programId, const vector<Seat>& seats, int userId);
 	int getProgramId(const wstring& tableName, const wstring& movieTitle, const wstring& location, const wstring& date);
 	vector<wstring> getMovieHall(const wstring& programTableName, const wstring& movieTitle,const wstring& date);
+	int getLoggedInUserId(wstring username);
 };

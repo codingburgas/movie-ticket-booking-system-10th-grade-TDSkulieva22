@@ -3,22 +3,27 @@
 #include "Menu.h"
 #include "Colors.h"
 #include "DrawText.h"
+#include <DatabaseManager.h>
 
-void Payment::startPayment() {
+void Payment::startPayment(wstring title, wstring city, wstring location, wstring date, vector<wstring> hall, vector<Seat> selectSeats,int row, wstring programTableName) {
 	cinemaCity();
 	newLine(2); 
 
 	string paymentMethod;
-	cout << "    --> How would you like to pay? (cash or online)  ";
+
+	setColor(BLUE);
+	cout << "    --> How would you like to pay? (cash or online):  ";
+	resetColor();
+
 	cin >> paymentMethod;
 
 	if (paymentMethod == "cash") {
 		system("cls");
-		proccessCashPayment();
+		proccessCashPayment(title,city, location, date, hall, selectSeats);
 	}
 	else if (paymentMethod == "online") {
 		system("cls");
-		processOnlinePayment();
+		processOnlinePayment(programTableName,  title,  date,  row,selectSeats);
 	}
 	else {
 		setColor(RED);
@@ -38,32 +43,73 @@ bool Payment::isValidExpiry(const string& expiry) {
 	regex expiry_regex("^(0[1-9]|1[0-2])/\\d{2}$");
 	return regex_match(expiry, expiry_regex);
 }
-void Payment::proccessCashPayment() {
+void Payment::proccessCashPayment(wstring movieTitle, wstring city, wstring location, wstring date, vector<wstring> hall, vector<Seat> selectSeats) {
 	cinemaCity();
 	newLine(2);
 
-	//wcout << L"\n\n=== Payment Receipt ===\n";
-	//wcout << L"Movie: " << movieTitle << endl;
-	//wcout << L"City: " << city << endl;
-	//wcout << L"Location: " << location << endl;
-	//wcout << L"Date: " << date << endl;
-	//wcout << L"Hall: " << hallNumber << endl;
-	//wcout << L"Seats: ";
-	//
-	//for (auto& seat : selectedSeats) wcout << seat.row << "-" << seat.number << L" ";
-	//wcout << L"\nReservation Number: " << reservationNumber << endl;
-	//wcout << L"Please pay with this reservation number at the counter.\n";
-	//wcout << L"=========================\n\n";
+	srand(time(nullptr));
+	int reservationNumber = rand() % 1000000 + 1;
+
+	wcout << L"________________________________" << endl;
+
+	setColor(GREEN);
+	wcout << "            " << L"   --- Payment Receipt ---\n";
+	resetColor();
+
+	setColor(LIGHT_GREEN);
+	wcout << L"    Movie: ";
+	resetColor();
+	wcout << movieTitle << endl;
+
+	setColor(LIGHT_GREEN);
+	wcout << L"    City: ";
+	resetColor();
+	wcout << city << endl;
+
+	setColor(LIGHT_GREEN);
+	wcout << L"    Location: ";
+	resetColor();
+	wcout << location << endl;
+
+	setColor(LIGHT_GREEN);
+	wcout << L"    Date: ";
+	resetColor();
+	wcout << date << endl;
+
+	setColor(LIGHT_GREEN);
+	wcout << L"    Hall: ";
+	resetColor();
+	wcout << hall[0] << endl;
+
+	setColor(LIGHT_GREEN);
+	wcout << L"    Seats: ";
+	resetColor();
+
+	 for (auto& seat : selectSeats) wcout << seat.row << "-" << seat.number << L" ";
+	 newLine(1);
+
+	 setColor(LIGHT_GREEN);
+	 wcout << L"    Reservation Number: ";
+	 resetColor();
+	 wcout << reservationNumber << endl;
+
+	 setColor(LIGHT_RED);
+	 wcout << L"!!! Please pay with this reservation number at the counter.\n";
+	 resetColor();
+	 wcout << L"________________________________";
+	 newLine(2);
 }
-void Payment::processOnlinePayment() {
+void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,wstring date, int row, vector<Seat> selectSeats) {
 	cinemaCity();
 	newLine(2);
 
+	DatabaseManager db;
 	string cardNumber;
 	string expiry;
 	string cvv;
+	
 
-	double amount = 15;
+	const vector<wstring> hall = db.getMovieHall(programTableName, movieTitle,date);
 
 	cout << "Online transaction" << endl;
 
@@ -86,6 +132,61 @@ void Payment::processOnlinePayment() {
 
 	getline(cin, cvv);
 
+	setColor(BLUE);
+
+	double hallPr;
+	string currentHall;
+
+
+	if (hall[0] == L"2D") {
+		hallPr = 5;
+		currentHall = "2D";
+	}
+	else if (hall[0] == L"3D") {
+		hallPr = 6;
+		currentHall = "3D";
+	}
+	else if (hall[0] == L"4DX") {
+		hallPr = 7;
+		currentHall = "4DX";
+	}
+	else if (hall[0] == L"IMAX") {
+		hallPr = 8;
+		currentHall = "IMAX";
+	}
+	else {
+		hallPr = 9;
+		currentHall = "VIP";
+	}
+
+
+	if (row >= 1 && row <= 4) {
+		hallPr += 1;
+	}
+	else if (row >= 5 && row <= 7) {
+		hallPr += 2;
+	}
+	else {
+		hallPr += 3;
+	}
+
+	if (date == L"2025-07-14") {
+		hallPr = hallPr - (hallPr * 0.10);
+	}
+
+	cout << "    --> Enter a valid coupon code:  ";
+	resetColor();
+
+	string couponCode;
+	getline(cin, couponCode);
+
+	if (couponCode == "TICKET2%") {
+		hallPr = hallPr - (hallPr * 0.02);
+	}
+
+	
+	
+
 	if (!isValidCardNumber(cardNumber) || !isValidExpiry(expiry) || !isValidCVV(cvv)) {
 		setColor(RED);
 		cout << "Payment failed due to invalid details.\n";
@@ -93,5 +194,7 @@ void Payment::processOnlinePayment() {
 		return;
 	}
 
+
+	double amount = hallPr;
 	cout << "    --> Payment of " << amount << " is successfull!" << endl;
 }

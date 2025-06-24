@@ -314,3 +314,24 @@ vector<wstring> DatabaseManager::getMovieHall(const wstring& programTableName, c
 	return halls;
 }
 
+int DatabaseManager::getLoggedInUserId(wstring username) {
+	 
+	SQLHSTMT hStmt = SQL_NULL_HANDLE;
+	int userId = -1;
+
+	wstring query =
+		L"SELECT TOP 1 Id "
+		L"FROM Users "
+		L"WHERE Username = N'" + username + L"'";
+
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+	if (SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS) == SQL_SUCCESS) {
+		if (SQLFetch(hStmt) == SQL_SUCCESS) {
+			SQLGetData(hStmt, 1, SQL_C_SLONG, &userId, 0, nullptr);
+		}
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	return userId;
+}
+

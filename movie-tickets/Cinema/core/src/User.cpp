@@ -12,7 +12,7 @@
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
 
-int User::currentUserId = 1;
+DatabaseManager db;
 
 bool User::userExists(const wstring& username) {
 	SQLHSTMT hStmt;
@@ -140,7 +140,7 @@ bool User::userLogin(const wstring& username, const wstring& password) {
 	system("pause");
 }
 
-void User::userMainMenu()
+void User::userMainMenu(wstring username)
 {
 	int menuSelected = 0;
 	bool menuRunning = true;
@@ -182,7 +182,7 @@ void User::userMainMenu()
 					break;
 				}
 
-				reserveTicket(User::currentUserId);
+				reserveTicket(db.getLoggedInUserId(username));
 				db.disconnect();
 				break;
 			}
