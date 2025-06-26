@@ -188,12 +188,13 @@ void User::userMainMenu(wstring username)
 			}
 			case 2:
 			{
-				// db.getReservationsByUserId(db.getLoggedInUserId(username));
+				
+				db.getReservationsByUserId(db.getLoggedInUserId(username));
 				db.deleteReservation(db.getLoggedInUserId(username));
 				break;
 			}
 			case 3:
-				//db.getReservationsByUserId(db.getLoggedInUserId(username));
+				db.getReservationsByUserId(db.getLoggedInUserId(username));
 				break;
 			case 4:
 				User userObj;

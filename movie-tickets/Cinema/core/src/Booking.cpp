@@ -64,6 +64,7 @@ void reserveTicket(int userId) {
         wcout << L"    --> Enter city: ";
         resetColor();
         getline(wcin, input.city);
+        cin.ignore();
 
         if (validLocations.count(input.city) == 0) {
             setColor(RED);
@@ -82,7 +83,10 @@ void reserveTicket(int userId) {
         wcout << L"    --> Enter location: ";
         resetColor();
 
+     
+
         getline(wcin, input.location);
+        cin.ignore();
 
         const auto& locations = validLocations[input.city];
         if (find(locations.begin(), locations.end(), input.location) == locations.end()) {
@@ -109,6 +113,7 @@ void reserveTicket(int userId) {
         resetColor();
 
         getline(wcin, input.date);
+        cin.ignore();
 
         if (find(validDates.begin(), validDates.end(), input.date) == validDates.end()) {
             setColor(RED);

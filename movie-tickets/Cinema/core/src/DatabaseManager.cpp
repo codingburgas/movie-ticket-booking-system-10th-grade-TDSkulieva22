@@ -388,6 +388,50 @@ bool DatabaseManager::getReservationsByCity() {
 	return true;
 }
 
+bool DatabaseManager::getReservationsByUserId(int userId) {
+	SQLHSTMT hStmt = SQL_NULL_HANDLE;
+
+	wstring query =
+		L"SELECT sr.id, sr.program_id, sr.seat_row, sr.seat_number, pm.table_name, u.Username "
+		L"FROM SeatReservations AS sr "
+		L"JOIN ProgramMap AS pm "
+		L"ON sr.program_id = pm.id "
+		L"JOIN Users AS u "
+		L"ON sr.user_id = u.id "
+		L"WHERE sr.user_id = " + to_wstring(userId);
+
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);
+	if (!(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)) {
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+		return false;
+	}
+
+	SQLINTEGER id, program_id, seat_row, seat_number;
+	SQLWCHAR username[100], table_name[100];
+	SQLBindCol(hStmt, 1, SQL_C_SLONG, &id, 0, NULL);
+	SQLBindCol(hStmt, 2, SQL_C_SLONG, &program_id, 0, NULL);
+	SQLBindCol(hStmt, 3, SQL_C_SLONG, &seat_row, 0, NULL);
+	SQLBindCol(hStmt, 4, SQL_C_SLONG, &seat_number, 0, NULL);
+	SQLBindCol(hStmt, 5, SQL_C_WCHAR, table_name, sizeof(table_name), NULL);
+	SQLBindCol(hStmt, 6, SQL_C_WCHAR, username, sizeof(username), NULL);
+
+	while (SQLFetch(hStmt) == SQL_SUCCESS) {
+		wcout << L"------------------------" << endl;
+		wcout << L" Reservation ID: " << id << endl;
+		wcout << L" Program ID: " << program_id << endl;
+		wcout << L" Cinema Program: " << table_name << endl;
+		wcout << L" Row: " << seat_row << endl;
+		wcout << L" Number: " << seat_number << endl;
+		wcout << L" Username: " << username << endl;
+		wcout << L"------------------------" << endl;
+		newLine(2);
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	return true;
+}
+
 bool DatabaseManager::deleteReservation(int userId) {
 	wcout << L"Enter the reservation you want to delete (ID): ";
 	int reservationId;
