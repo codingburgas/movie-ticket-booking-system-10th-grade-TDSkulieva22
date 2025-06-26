@@ -7,7 +7,7 @@
 
 void Payment::startPayment(wstring title, wstring city, wstring location, wstring date, vector<wstring> hall, vector<Seat> selectSeats,int row, wstring programTableName) {
 	cinemaCity();
-	newLine(2); 
+	newLine(3); 
 
 	string paymentMethod;
 
@@ -111,7 +111,11 @@ void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,w
 
 	const vector<wstring> hall = db.getMovieHall(programTableName, movieTitle,date);
 
-	cout << "Online transaction" << endl;
+	setColor(LIGHT_GREEN);
+	printCentered("Online transaction", 8);
+	resetColor();
+
+	newLine(2);
 
 	setColor(BLUE);
 	cout << "    --> Enter card number (#### #### #### ####): ";
@@ -196,5 +200,8 @@ void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,w
 
 
 	double amount = hallPr;
-	cout << "    --> Payment of " << amount << " is successfull!" << endl;
+	amount = round(amount * 100) / 100.0;
+
+	cout << fixed << setprecision(2);
+	cout << "    --> Payment of " << amount << "euro is successfull!" << endl;
 }

@@ -13,7 +13,7 @@ struct ReservationInput {
     wstring movieTitle;
 };
 
-
 void printSeatMap(const vector<Seat>& seats);
 void reserveTicket(int userId);
 
+void deleteReservationMenu(int userId);

@@ -2,6 +2,7 @@
 #include "Offers.h"
 #include "DatabaseManager.h"
 #include "Booking.h"
+#include "Menu.h"
 
 SQLHENV hEnv = nullptr;
 SQLHDBC hDbc = nullptr;
@@ -335,3 +336,30 @@ int DatabaseManager::getLoggedInUserId(wstring username) {
 	return userId;
 }
 
+bool DatabaseManager::getReservationsByCity() {
+	
+}
+
+bool DatabaseManager::deleteReservation(int userId) {
+	wcout << L"Enter the reservation you want to delete (ID): ";
+	int reservationId;
+	wcin >> reservationId;
+
+	SQLHSTMT hStmt = SQL_NULL_HANDLE;
+	wstring query = L"DELETE FROM SeatReservations WHERE id = " + to_wstring(reservationId) + L" AND user_id = " + to_wstring(userId);
+
+	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);
+
+	if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO) {
+		wcout << L"Reservation with ID " << reservationId << L" successfully deleted.\n";
+	}
+	else {
+		wcout << L"Error: Could not delete reservation with ID " << reservationId << L".\n";
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+		return false;
+	}
+
+	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	return true;
+}

@@ -187,10 +187,13 @@ void User::userMainMenu(wstring username)
 				break;
 			}
 			case 2:
-				cout << "Cancelling reservation...\n";
+			{
+				// db.getReservationsByUserId(db.getLoggedInUserId(username));
+				db.deleteReservation(db.getLoggedInUserId(username));
 				break;
+			}
 			case 3:
-				cout << "Displaying your tickets...\n";
+				//db.getReservationsByUserId(db.getLoggedInUserId(username));
 				break;
 			case 4:
 				User userObj;

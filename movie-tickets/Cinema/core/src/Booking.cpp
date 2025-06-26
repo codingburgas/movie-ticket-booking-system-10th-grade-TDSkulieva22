@@ -223,6 +223,7 @@ void reserveTicket(int userId) {
         newLine(2);
         resetColor();
         printSeatMap(db.getSeatMap(programId));
+        system("pause");
 
         system("cls");
         cinemaCity();

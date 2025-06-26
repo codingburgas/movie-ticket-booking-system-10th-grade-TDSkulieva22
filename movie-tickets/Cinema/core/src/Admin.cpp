@@ -121,8 +121,15 @@ void Admin::adminMenu() {
                 deleteMovie();
                 break;
             case 3:
-                cout << "View reservations...\n";
+            {
+                DatabaseManager db;
+                if (db.connect()) {
+                   
+                    db.getReservationsByCity();
+                    db.disconnect();
+                }
                 break;
+            }
             case 4:
                 cout << "Change offers...\n";
                 this->manageOffers();

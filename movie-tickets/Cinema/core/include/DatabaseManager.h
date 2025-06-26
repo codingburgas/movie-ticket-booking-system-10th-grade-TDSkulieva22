@@ -26,6 +26,16 @@ struct ShowtimeDetails {
 	wstring hall;
 };
 
+struct ReservationInfo {
+	int reservationId;
+	wstring movieTitle;
+	wstring dateTime;
+	wstring cinemaCity;
+	wstring cinemaName;
+	int seatRow;
+	int seatNumber;
+};
+
 class DatabaseManager
 {
 
@@ -45,4 +55,7 @@ public:
 	int getProgramId(const wstring& tableName, const wstring& movieTitle, const wstring& location, const wstring& date);
 	vector<wstring> getMovieHall(const wstring& programTableName, const wstring& movieTitle,const wstring& date);
 	int getLoggedInUserId(wstring username);
+	bool getReservationsByCity();
+	bool getReservationsByUserId(int userId);
+	bool deleteReservation(int userId);
 };

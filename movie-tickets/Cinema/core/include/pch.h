@@ -15,6 +15,7 @@
 #include <map>
 #include <regex>
 #include <codecvt>
+#include <cmath>
 
 using namespace std;
 
