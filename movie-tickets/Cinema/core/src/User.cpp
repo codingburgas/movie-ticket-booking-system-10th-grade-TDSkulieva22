@@ -188,12 +188,16 @@ void User::userMainMenu(wstring username)
 			}
 			case 2:
 			{
-				
+				cinemaCity();
+				newLine(3);
 				db.getReservationsByUserId(db.getLoggedInUserId(username));
 				db.deleteReservation(db.getLoggedInUserId(username));
 				break;
 			}
 			case 3:
+				cinemaCity();
+				newLine(3);
+
 				db.getReservationsByUserId(db.getLoggedInUserId(username));
 				break;
 			case 4:
@@ -218,7 +222,7 @@ void User::userOffers() {
 
 	setColor(LIGHT_BLUE);
 	wcout << "                   ";
-	wcout << L"         ========= CINEMA TICKET OFFERS =========\n";
+	wcout << L"              ------------ CINEMA TICKET OFFERS ------------\n";
 	resetColor();
 
 	newLine(1);

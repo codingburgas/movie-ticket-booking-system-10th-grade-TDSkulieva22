@@ -7,23 +7,10 @@
 #include "DatabaseManager.h" 
 #include "Colors.h"
 
-//string toLower(const string& input) {
-//	string result = input;
-//	transform(result.begin(), result.end(), result.begin(), ::tolower);
-//	return result;
-//}
-//
-//string trim(const string& str) {
-//	size_t first = str.find_first_not_of(" \t\n\r\f\v");
-//	if (first == string::npos) return "";
-//	size_t last = str.find_last_not_of(" \t\n\r\f\v");
-//	return str.substr(first, last - first + 1);
-//}
-
 void addMovie() {
     system("cls");
     cinemaCity();
-    newLine(1);
+    newLine(3);
 
     //Gather movie details
     string title, genre, story, category, languages, actor, director;
@@ -57,7 +44,7 @@ void addMovie() {
     getline(cin, story);
 
     setColor(LIGHT_BLUE);
-    cout << "    --> Enter Category (e.g., PG-13, R): ";
+    cout << "    --> Enter Category (B, D, C+, D+): ";
     resetColor();
     getline(cin, category);
 
@@ -67,7 +54,7 @@ void addMovie() {
     getline(cin, languages);
 
     setColor(LIGHT_BLUE);
-    cout << "    --> Enter Main Actor(s): ";
+    cout << "    --> Enter Main Actor: ";
     resetColor();
 
     getline(cin, actor);
@@ -127,10 +114,9 @@ void deleteMovie() {
     newLine(3);
 
     string title;
-    cin.ignore();
 
     setColor(LIGHT_BLUE);
-    cout << "    --> Enter the Title of the Movie to Delete: ";
+    cout << "    --> Enter the title of the movie to delete: ";
     resetColor();
 
     getline(cin, title);
@@ -169,7 +155,6 @@ void editMovie()
     newLine(1);
 
     string origTitle;
-    cin.ignore();
 
     newLine(4);
     setColor(YELLOW);

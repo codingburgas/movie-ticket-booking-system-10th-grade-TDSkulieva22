@@ -26,7 +26,10 @@ void Admin::manageOffers() {
         string newTitle_str, newDescription_str;
         char newIsActive_char;
 
-        cout << "\n    Enter Offer ID to edit (0 to return to Admin Menu): ";
+        setColor(LIGHT_BLUE);
+        cout << "\n    --> Enter Offer ID to edit (0 to return to Admin Menu): ";
+        resetColor();
+
         cin >> offerId;
 
         if (offerId == 0) {
@@ -36,22 +39,33 @@ void Admin::manageOffers() {
 
         cin.ignore();
 
-        cout << "    Enter New Title (leave blank to keep current): ";
+        setColor(LIGHT_BLUE);
+        cout << "    Enter New Title: ";
+        resetColor();
         getline(cin, newTitle_str);
+        newLine(1);
 
-        cout << "    Enter New Description (leave blank to keep current): ";
+        setColor(LIGHT_BLUE);
+        cout << "    Enter New Description : ";
+        resetColor();
         getline(cin, newDescription_str);
 
-        cout << "    Is Offer Active? (y/n, leave blank to keep current): ";
+        newLine(1);
+        setColor(LIGHT_BLUE);
+        cout << "    Is Offer Active? (yes / no): ";
+        resetColor();
         string isActiveInput;
         getline(cin, isActiveInput);
+        newLine(2);
 
         bool newIsActive;
 
-        if (isActiveInput.empty() || (tolower(isActiveInput[0]) != 'y' && tolower(isActiveInput[0]) != 'n')) {
-            cout << "    This field cannot be left blank. Please enter 'y' or 'n'.\n";
+        if (isActiveInput.empty() || (tolower(isActiveInput[0]) != 'yes' && tolower(isActiveInput[0]) != 'no')) {
+            setColor(RED);
+            cout << "    This field cannot be left blank. Please enter 'yes' or 'no'.\n";
+            resetColor();
             _getch();
-            continue; // Re-run loop
+            continue; // Rerun loop
         }
         else {
             newIsActive = (tolower(isActiveInput[0]) == 'y');

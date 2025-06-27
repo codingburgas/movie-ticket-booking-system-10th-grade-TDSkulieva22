@@ -9,13 +9,6 @@
 #include "DatabaseManager.h"
 #include "Offers.h"
 
-//bool adminLogin(string username,string password) {
-//	 string Admin_User = "admin";
-//	 string Admin_Pass = "admin";
-//
-//	return (username == Admin_User && password == Admin_Pass);
-//
-//}
 bool Admin::checkAdminCredentials(const string& username, const string& password) {
     string Admin_User = "admin";
     string Admin_Pass = "admin";
@@ -122,6 +115,9 @@ void Admin::adminMenu() {
                 break;
             case 3:
             {
+                cinemaCity();
+                newLine(3);
+
                 DatabaseManager db;
                 if (db.connect()) {
                    
@@ -131,7 +127,9 @@ void Admin::adminMenu() {
                 break;
             }
             case 4:
-                cout << "Change offers...\n";
+                system("cls");
+                cinemaCity();
+                newLine(4);
                 this->manageOffers();
                 break;
             case 5:

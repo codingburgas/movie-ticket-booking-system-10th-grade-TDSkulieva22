@@ -151,10 +151,6 @@ void menu() {
                                 adminManager.adminMenu();
                                 running = true;
                             }
-                            //if (isAdmin()) {
-                            //    adminMenu(moviesHead);
-                            //    running = true;  //Go back to the main menu
-                            //}
                             else {
                                 cout << "Log in failed" << endl;
                                 running = true;
@@ -214,7 +210,7 @@ void menu() {
 
                                         if (User::userExists(username)) {
                                             setColor(RED);
-                                            wcout << L"Username already registered!" << endl;
+                                            wcout << L"     Username already registered!" << endl;
                                             resetColor();
                                             _getch();
                                         }
@@ -222,7 +218,7 @@ void menu() {
                                         {
                                             if (userObj.userRegister(username, password)) {
                                                 setColor(LIGHT_GREEN);
-                                                wcout << L"Registration successful!" << endl;
+                                                wcout << L"      Registration successful!" << endl;
                                                 resetColor();
 
                                                 _getch();
@@ -235,7 +231,7 @@ void menu() {
                                             }
                                             else {
                                                 setColor(RED);
-                                                wcout << L"Registration failed!" << endl;
+                                                wcout << L"     Registration failed!" << endl;
                                                 resetColor();
 
                                                 _getch();
@@ -253,7 +249,9 @@ void menu() {
             else {
                 resetColor();
                 system("cls");
-                printCentered("Goodbye! You can close the app by pressing any key button...", 10);
+                cinemaCity();
+                printCentered("Goodbye! You can close the app by pressing any key button...", 8);
+                newLine(2);
                 running = false;
                 break;
             }

@@ -3,6 +3,7 @@
 #include "DatabaseManager.h"
 #include "Booking.h"
 #include "Menu.h"
+#include "Colors.h"
 
 SQLHENV hEnv = nullptr;
 SQLHDBC hDbc = nullptr;
@@ -340,7 +341,10 @@ bool DatabaseManager::getReservationsByCity() {
 	SQLHSTMT hStmt = SQL_NULL_HANDLE;
 
 	wstring city;
-	wcout << L"Enter city: ";
+	setColor(GREEN);
+	wcout << L"    --> Enter city: ";
+	resetColor();
+
 	cin.ignore();
 	cin.clear();
 	getline(wcin, city);
@@ -374,14 +378,35 @@ bool DatabaseManager::getReservationsByCity() {
 
 
 	while (SQLFetch(hStmt) == SQL_SUCCESS) {
-		wcout << L"------------------------" << endl;
-		wcout << L" Reservation ID: " << id << endl;
-		wcout << L" City: " << city << endl;
-		wcout << L" Row: " << seat_row << endl;
-		wcout << L" Number: " << seat_number << endl;
-		wcout << L" Username: " << username << endl;
-		wcout << L"------------------------" << endl;
-		newLine(2);
+		setColor(LIGHT_BLUE);
+		wcout << L" | Reservation ID: | ";
+		resetColor();
+		wcout << id;
+
+		setColor(LIGHT_BLUE);
+		wcout << L" | City: | ";
+		resetColor();
+		wcout << city;
+
+		setColor(LIGHT_BLUE);
+		wcout << L" | Row: | ";
+		resetColor();
+		wcout << seat_row;
+
+		setColor(LIGHT_BLUE);
+		wcout << L" | Number: | ";
+		resetColor();
+		wcout << seat_number;
+
+		setColor(LIGHT_BLUE);
+		wcout << L" | User: | ";
+		resetColor();
+		wcout << username << endl;
+
+		setColor(LIGHT_RED);
+		wcout << L"______________________________" << endl;
+		resetColor();
+		newLine(1);
 	}
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
@@ -416,15 +441,39 @@ bool DatabaseManager::getReservationsByUserId(int userId) {
 	SQLBindCol(hStmt, 5, SQL_C_WCHAR, table_name, sizeof(table_name), NULL);
 	SQLBindCol(hStmt, 6, SQL_C_WCHAR, username, sizeof(username), NULL);
 
+	
 	while (SQLFetch(hStmt) == SQL_SUCCESS) {
-		wcout << L"------------------------" << endl;
-		wcout << L" Reservation ID: " << id << endl;
-		wcout << L" Program ID: " << program_id << endl;
-		wcout << L" Cinema Program: " << table_name << endl;
-		wcout << L" Row: " << seat_row << endl;
-		wcout << L" Number: " << seat_number << endl;
-		wcout << L" Username: " << username << endl;
-		wcout << L"------------------------" << endl;
+		setColor(LIGHT_GREEN);
+		wcout << L" | Reservation ID: | ";
+		resetColor();
+		wcout << id;
+
+		setColor(LIGHT_GREEN);
+		wcout << L" | Program ID: | ";
+		resetColor();
+		wcout << program_id;
+
+		setColor(LIGHT_GREEN);
+		wcout << L" | Program: | ";
+		resetColor();
+		wcout << table_name;
+
+		setColor(LIGHT_GREEN);
+		wcout << L" | Row: | ";
+		resetColor();
+		wcout << seat_row;
+
+		setColor(LIGHT_GREEN);
+		wcout << L" | Number: | ";
+		resetColor();
+		wcout << seat_number;
+
+		setColor(LIGHT_GREEN);
+		wcout << L" | User: | ";
+		resetColor();
+		wcout << username << endl;
+
+		wcout << L"______________________________" << endl;
 		newLine(2);
 	}
 
@@ -433,7 +482,10 @@ bool DatabaseManager::getReservationsByUserId(int userId) {
 }
 
 bool DatabaseManager::deleteReservation(int userId) {
-	wcout << L"Enter the reservation you want to delete (ID): ";
+	setColor(LIGHT_RED);
+	wcout << L"    --> Enter the reservation you want to delete (ID): ";
+	resetColor();
+
 	int reservationId;
 	wcin >> reservationId;
 
@@ -444,10 +496,15 @@ bool DatabaseManager::deleteReservation(int userId) {
 	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);
 
 	if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO) {
+		setColor(LIGHT_BLUE);
 		wcout << L"Reservation with ID " << reservationId << L" successfully deleted.\n";
+		resetColor();
 	}
 	else {
-		wcout << L"Error: Could not delete reservation with ID " << reservationId << L".\n";
+		setColor(RED);
+		wcout << L" !!! Error: Could not delete reservation with ID " << reservationId << L".\n";
+		resetColor();
+
 		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 		return false;
 	}

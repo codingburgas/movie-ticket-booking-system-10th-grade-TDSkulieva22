@@ -136,7 +136,9 @@ void showMovieFilters() {
         }
         
         system("cls");
-        newLine(1);
+        cinemaCity();
+
+        newLine(3);
         setColor(LIGHT_GREEN);
         wcout << L"    --- Available Movies ---\n\n";
         resetColor();
@@ -145,7 +147,7 @@ void showMovieFilters() {
             wcout << L"    " << (i + 1) << L". " << movieTitles[i] << L"\n";
         }
 
-        newLine(1);
+        newLine(2);
         setColor(LIGHT_BLUE);
         wcout << L"    --> Enter the number of the movie to see details (0 to go back): ";
         resetColor();
@@ -166,7 +168,9 @@ void showMovieFilters() {
 
             if (dbManager.getMovieDetails(selectedMovieTitle, details)) {
                 system("cls");
-                newLine(1);
+                cinemaCity();
+
+                newLine(2);
                 setColor(LIGHT_GREEN);
                 wcout << L"    --- Movie Details ---\n\n";
                 resetColor();
@@ -226,10 +230,10 @@ void displayMovieInfo(const MovieDetails& details, const vector<ShowtimeDetails>
 
     newLine(1);
     setColor(BLUE);
-    wcout << L"    Story: ";
+    wcout << L"    Story: " << endl;
     resetColor();
 
-    wcout << details.story << L"\n";
+    wcout << "    " << details.story << L"\n";
     newLine(1);
 
     setColor(BLUE);
@@ -258,6 +262,7 @@ void displayMovieInfo(const MovieDetails& details, const vector<ShowtimeDetails>
 
     if (!showtimes.empty()) {
         setColor(LIGHT_GREEN);
+        newLine(2);
         wcout << L"\n          --- Showtimes ---\n";
         resetColor();
         newLine(1);

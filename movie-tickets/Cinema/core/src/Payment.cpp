@@ -50,7 +50,7 @@ void Payment::proccessCashPayment(wstring movieTitle, wstring city, wstring loca
 	srand(time(nullptr));
 	int reservationNumber = rand() % 1000000 + 1;
 
-	wcout << L"________________________________" << endl;
+	wcout << L"_______________________________________" << endl;
 
 	setColor(GREEN);
 	wcout << "            " << L"   --- Payment Receipt ---\n";
@@ -93,10 +93,11 @@ void Payment::proccessCashPayment(wstring movieTitle, wstring city, wstring loca
 	 resetColor();
 	 wcout << reservationNumber << endl;
 
+	 wcout << L"_______________________________________";
+	 newLine(2);
 	 setColor(LIGHT_RED);
 	 wcout << L"!!! Please pay with this reservation number at the counter.\n";
 	 resetColor();
-	 wcout << L"________________________________";
 	 newLine(2);
 }
 void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,wstring date, int row, vector<Seat> selectSeats) {
@@ -203,5 +204,9 @@ void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,w
 	amount = round(amount * 100) / 100.0;
 
 	cout << fixed << setprecision(2);
-	cout << "    --> Payment of " << amount << "euro is successfull!" << endl;
+	newLine(2);
+
+	setColor(YELLOW);
+	cout << "    --> Payment of " << amount << " euro is successfull!" << endl;
+	resetColor();
 }
