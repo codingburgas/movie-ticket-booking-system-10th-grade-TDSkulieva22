@@ -110,6 +110,7 @@ void addMovie() {
 
 void deleteMovie() {
     system("cls");
+
     cinemaCity();
     newLine(3);
 
@@ -118,13 +119,11 @@ void deleteMovie() {
     setColor(LIGHT_BLUE);
     cout << "    --> Enter the title of the movie to delete: ";
     resetColor();
-
     getline(cin, title);
 
     wstring Title = wstring(title.begin(), title.end());
    
     wstring sqlQuery = L"DELETE FROM Movies WHERE Title = N'" + Title + L"'";
-
  
     DatabaseManager dbManager;
     if (dbManager.connect()) {
@@ -160,6 +159,7 @@ void editMovie()
     setColor(YELLOW);
     cout << "    --> Enter the Title of the Movie to Edit: ";
     resetColor();
+    cin.ignore();
     getline(cin, origTitle);
 
     wstring OrigTitle = wstring(origTitle.begin(), origTitle.end());
@@ -167,7 +167,6 @@ void editMovie()
     DatabaseManager dbManager;
     if (!dbManager.connect()) {
         cout << "\n     Failed to connect to the database.\n";
-        cout << "\n     Press any key to continue...";
         _getch();
         return;
     }
@@ -254,7 +253,7 @@ void editMovie()
 
             while (!valid) {
                 setColor(YELLOW);
-                cout << "     Enter new Duration (minutes): ";
+                cout << "    --> Enter new Duration (minutes): ";
                 resetColor();
                 getline(cin, input);
 
@@ -347,7 +346,8 @@ void editMovie()
 
             _getch();
             continue;
-        
+        }
+
         if (dbManager.executeNonQuery(sqlQuery)) {
             setColor(LIGHT_GREEN);
             cout << "\n     Field updated successfully!\n";
@@ -374,5 +374,4 @@ void editMovie()
 
         dbManager.disconnect();
         _getch();
-    }
 }
