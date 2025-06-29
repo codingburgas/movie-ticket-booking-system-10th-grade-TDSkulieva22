@@ -19,7 +19,7 @@ bool User::userExists(const wstring& username) {
 	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
 
 	if (hDbc == NULL) {
-		cout<<"mn kofti"<<endl;
+		cout<<"Error!"<<endl;
 	}
 	wstring query = L"SELECT COUNT(*) FROM Users WHERE Username = N'" + username + L"'";
 	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);

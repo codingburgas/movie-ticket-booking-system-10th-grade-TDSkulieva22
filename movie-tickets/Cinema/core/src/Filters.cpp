@@ -19,7 +19,7 @@ void showMovieFilters() {
     wstring programTableName;
     wstring cinema;
 
-    if (town == L"Sofia" || town == L"sofia") {
+    if (town == L"Sofia" || town == L"sofia") {    //Validate city
         do {
             setColor(LIGHT_BLUE);
             wcout << L"    --> Choose a cinema: Mall Paradise or The Mall: ";
@@ -91,6 +91,7 @@ void showMovieFilters() {
         return;
     }
 
+    //Ask user for a preferred date
     wstring date;
     setColor(LIGHT_BLUE);
     wcout << L"    --> Choose a date (2025-07-14, 2025-07-15, 2025-07-16, 2025-07-17, 2025-07-18): ";
@@ -103,12 +104,14 @@ void showMovieFilters() {
         return;
     }
 
+    //Ask for genre filter or allow all
     wstring genre;
     setColor(LIGHT_BLUE);
     wcout << L"    --> Do you want a specific genre? (Enter genre or 'all' for all movies): ";
     resetColor();
     getline(wcin, genre);
 
+    //Build SQL query based on selected filters
     wstring sqlQuery = L"SELECT DISTINCT M.Title "
         L"FROM Movies AS M "
         L"JOIN [CinemaDB].[dbo].[" + programTableName + L"] AS P ON M.MovieId = P.MovieId "
@@ -123,6 +126,7 @@ void showMovieFilters() {
     DatabaseManager dbManager;
     vector<wstring> movieTitles;
 
+    //Fetch movie titles
     if (dbManager.connect()) {
         movieTitles = dbManager.getMovieTitles(sqlQuery);
         
@@ -161,7 +165,7 @@ void showMovieFilters() {
             return;
         }
 
-        if (movieChoice > 0 && movieChoice <= movieTitles.size()) {
+        if (movieChoice > 0 && movieChoice <= movieTitles.size()) {  //Get and display selected movie details
             wstring selectedMovieTitle = movieTitles[movieChoice - 1];
 
             MovieDetails details;
@@ -205,6 +209,7 @@ void displayMovieInfo(const MovieDetails& details, const vector<ShowtimeDetails>
     cinemaCity();
     newLine(3);
 
+    //Print movie basic info
     setColor(LIGHT_GREEN);
     wcout << L"          --- Movie Details ---" << endl; 
     resetColor();
@@ -260,6 +265,7 @@ void displayMovieInfo(const MovieDetails& details, const vector<ShowtimeDetails>
 
     wcout << details.director << L"\n";
 
+    //Show showtimes if available
     if (!showtimes.empty()) {
         setColor(LIGHT_GREEN);
         newLine(2);
@@ -288,6 +294,7 @@ void displayMovieInfo(const MovieDetails& details, const vector<ShowtimeDetails>
         }
     }
     else {
+        //No showtimes available
         setColor(YELLOW);
         wcout << L"    No showtimes found for this movie at the selected cinema and date.\n";
         resetColor();

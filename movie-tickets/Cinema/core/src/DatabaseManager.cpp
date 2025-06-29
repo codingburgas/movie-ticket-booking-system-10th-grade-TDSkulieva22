@@ -344,9 +344,6 @@ bool DatabaseManager::getReservationsByCity() {
 	setColor(GREEN);
 	wcout << L"    --> Enter city: ";
 	resetColor();
-
-	cin.ignore();
-	cin.clear();
 	getline(wcin, city);
 
 

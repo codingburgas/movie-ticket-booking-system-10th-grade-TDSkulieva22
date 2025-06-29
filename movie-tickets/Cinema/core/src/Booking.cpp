@@ -6,6 +6,7 @@
 #include "Menu.h"
 #include <Payment.h>
 
+//Valid cities and locations
 map<wstring, vector<wstring>> validLocations = {
     {L"Sofia", {L"The Mall", L"Mall Paradise"}},
     {L"Plovdiv", {L"Plovdiv Plaza", L"Mall Plovdiv"}},
@@ -13,6 +14,7 @@ map<wstring, vector<wstring>> validLocations = {
     {L"Varna", {L"Mall Varna"}}
 };
 
+//Valid available dates
 vector<wstring> validDates = {
     L"2025-07-14",
     L"2025-07-15",
@@ -21,29 +23,31 @@ vector<wstring> validDates = {
     L"2025-07-18"
 };
 
+//Seat map for a movie hall
 void printSeatMap(const vector<Seat>& seats) {
-    wstring map[10][10];
+    wstring map[10][10]; //2D array
 
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {          
-            map[i][j] = L"(   )";
+            map[i][j] = L"(   )";  //Initialize all seats as free
         }
     }
     for (const auto& seat : seats) {
         if (seat.isReserved) {
-            map[seat.row - 1][seat.number - 1] = L"( X )";
+            map[seat.row - 1][seat.number - 1] = L"( X )";  //Mark reserved seats
         }
     }
 
+    //Print seat layout
     for (int i = 0; i < 10; i++) {
         resetColor();
         wcout << "         " << L"   Row " << i + 1 << L": ";
         for (int j = 0; j < 10; j++){
             if (map[i][j] == L"( X )") {
-                setColor(RED);
+                setColor(RED);  //Reserved
             }
             else {
-                setColor(GREEN);
+                setColor(GREEN);   //Available
             }
             wcout << map[i][j] << " ";
         }
@@ -66,7 +70,7 @@ void reserveTicket(int userId) {
         getline(wcin, input.city);
         cin.ignore();
 
-        if (validLocations.count(input.city) == 0) {
+        if (validLocations.count(input.city) == 0) {  //Check if the entered city exists in the allowed list
             setColor(RED);
             newLine(1);
             wcout << L"   !!! Invalid city. Available options: Sofia, Plovdiv, Burgas, Varna\n";
@@ -89,7 +93,7 @@ void reserveTicket(int userId) {
         cin.ignore();
 
         const auto& locations = validLocations[input.city];
-        if (find(locations.begin(), locations.end(), input.location) == locations.end()) {
+        if (find(locations.begin(), locations.end(), input.location) == locations.end()) { //Checks if location is valid
             setColor(RED);
             newLine(1);
             wcout << L"   !!! Invalid location for " << input.city << L". Available options:\n";
@@ -115,7 +119,7 @@ void reserveTicket(int userId) {
         getline(wcin, input.date);
         cin.ignore();
 
-        if (find(validDates.begin(), validDates.end(), input.date) == validDates.end()) {
+        if (find(validDates.begin(), validDates.end(), input.date) == validDates.end()) { //Check if date is in allowed dates
             setColor(RED);
             newLine(1);
             wcout << L"   !!! Invalid date. Available dates are:\n";
@@ -133,9 +137,10 @@ void reserveTicket(int userId) {
         }
     }
 
-    wstring programTable = input.city + L"Program";
+    wstring programTable = input.city + L"Program"; //Table name dynamic
 
-    wstring query = L"SELECT DISTINCT m.Title "
+    //Dynamic SQL query
+    wstring query = L"SELECT DISTINCT m.Title " 
         L"FROM Movies m "
         L"JOIN [" + programTable + L"] p ON m.MovieId = p.MovieId "
         L"WHERE p.Location = N'" + input.location + L"' AND p.Date = N'" + input.date + L"'";
@@ -151,6 +156,7 @@ void reserveTicket(int userId) {
 
     newLine(3);
 
+    //Display movie options
     for (size_t i = 0; i < movies.size(); i++) {
         wcout <<"     " << i + 1 << L". " << movies[i] << endl;
     }
@@ -165,12 +171,13 @@ void reserveTicket(int userId) {
     wcin.ignore();
     input.movieTitle = movies[movieIndex - 1];
 
-    int programId = db.getProgramId(programTable, input.movieTitle, input.location, input.date);
 
+    //Get the program ID and movie hall based on selection
+    int programId = db.getProgramId(programTable, input.movieTitle, input.location, input.date);
     
     auto result = db.getMovieHall(programTable, input.movieTitle,input.date);
 
-
+    //Load the seat map from the database
     vector<Seat> currentSeats = db.getSeatMap(programId);
 
     system("cls");
@@ -203,7 +210,7 @@ void reserveTicket(int userId) {
         resetColor();
         wcin >> num;
 
-        bool isFree = true;
+        bool isFree = true;   //Check if seat is already reserved
         for (const auto& s : currentSeats)
             if (s.row == row && s.number == num && s.isReserved)
                 isFree = false;
@@ -216,10 +223,11 @@ void reserveTicket(int userId) {
             wcout << L"This seat has already been booked. Choose another." << endl;
             resetColor();
             newLine(1);
-            i--;
+            i--;  //Repeat thе iteration
         }
     }
 
+    //Attempt to reserve in DB
     if (db.reserveSeats(programId, selectedSeats, userId)) {
         system("cls");
         cinemaCity();
@@ -227,7 +235,7 @@ void reserveTicket(int userId) {
         printCentered("Successful reservation!", 10);
         newLine(2);
         resetColor();
-        printSeatMap(db.getSeatMap(programId));
+        printSeatMap(db.getSeatMap(programId)); //Updated seat map after reservation
         system("pause");
 
         system("cls");

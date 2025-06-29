@@ -15,7 +15,7 @@ bool isValidPassword(const string& password) {
 	bool hasDigit = false;
 	bool hasSpecial = false;
 
-	for (char c : password) {  //Iterate through each character in the password string
+	for (char c : password) {  //Iterate through each character in string
 		if (isupper(c)) {
 			hasUpper = true;
 		}
@@ -27,6 +27,7 @@ bool isValidPassword(const string& password) {
 		}
 	}
 
+	//If all required character types are present
 	if (!hasUpper || !hasDigit || !hasSpecial) {
 		cout << "Password must contain at least: \n";
 		cout << "* one uppercase letter \n";
@@ -37,13 +38,14 @@ bool isValidPassword(const string& password) {
 	return true;
 }
 
+//Get password input while hiding the characters
 string getHiddenPassword() {
 	string password;
 	char ch;
 	while (true) {
 		ch = _getch();
-		if (ch == 13) break;
-		else if (ch == 8) {
+		if (ch == 13) break; //If Enter is pressed
+		else if (ch == 8) { //Handle Backspace
 			if (!password.empty()) {
 				cout << "\b \b";
 				password.pop_back();
