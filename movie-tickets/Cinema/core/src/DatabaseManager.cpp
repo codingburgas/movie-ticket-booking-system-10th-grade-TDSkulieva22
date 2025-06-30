@@ -368,6 +368,7 @@ bool DatabaseManager::getReservationsByCity() {
 	wcout << L"    --> Enter city: ";
 	resetColor();
 	getline(wcin, city);
+	newLine(2);
 
 	//SQL query to retrieve reservations
 	wstring query =
