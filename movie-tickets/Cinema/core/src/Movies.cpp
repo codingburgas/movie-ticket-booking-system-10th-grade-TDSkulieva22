@@ -84,7 +84,6 @@ void addMovie() {
     sqlQuery += L"N'" + Actor + L"', ";
     sqlQuery += L"N'" + Director + L"')";
 
-    //Execute the query
     DatabaseManager dbManager;
     if (dbManager.connect()) {
         if (dbManager.executeNonQuery(sqlQuery)) {
@@ -121,11 +120,13 @@ void deleteMovie() {
     resetColor();
     getline(cin, title);
 
+    //Convert from narrow to wide string
     wstring Title = wstring(title.begin(), title.end());
    
+    //N prefix indicates Unicode
     wstring sqlQuery = L"DELETE FROM Movies WHERE Title = N'" + Title + L"'";
  
-    DatabaseManager dbManager;
+    DatabaseManager dbManager; //Create a DatabaseManager object
     if (dbManager.connect()) {
         if (dbManager.executeNonQuery(sqlQuery)) {
             setColor(LIGHT_GREEN);
@@ -162,16 +163,17 @@ void editMovie()
     cin.ignore();
     getline(cin, origTitle);
 
+    //Convert from narrow to wide string
     wstring OrigTitle = wstring(origTitle.begin(), origTitle.end());
 
-    DatabaseManager dbManager;
+    DatabaseManager dbManager;  //DatabaseManager object
     if (!dbManager.connect()) {
         cout << "\n     Failed to connect to the database.\n";
         _getch();
         return;
     }
 
-    bool edit = true;
+    bool edit = true; //To control the editing loop
 
     while (edit) {
         system("cls");
@@ -203,7 +205,7 @@ void editMovie()
 
         int choice;
         cin >> choice;
-        cin.ignore();
+        cin.ignore();   //Clear input buffer
 
         if (choice == 0) {
             edit = false;
@@ -215,7 +217,7 @@ void editMovie()
         wstring sqlQuery;
         bool queryConstructed = false;
 
-        switch (choice) {
+        switch (choice) { //Construct SQL query based on user's choice
         case 1:
         {
             setColor(YELLOW);
@@ -261,14 +263,14 @@ void editMovie()
 
                 newDuration = 0;
                 for (char c : input) {
-                    if (c < '0' || c > '9') {
+                    if (c < '0' || c > '9') { //Check if input is numeric only
                         valid = false;
                         break;
                     }
                     newDuration = newDuration * 10 + (c - '0');
                 }
 
-                if (!valid || newDuration == 0) {
+                if (!valid || newDuration == 0) { //Validate positive integer
                     setColor(RED);
                     cout << "     Invalid input! Please enter a positive number.\n";
                     resetColor();
@@ -367,7 +369,7 @@ void editMovie()
         cin >> again;
         cin.ignore();
 
-        if (again != "Yes" && again != "yes") {
+        if (again != "Yes" && again != "yes") { //Case insensitive
                 edit = false;
            }
         }

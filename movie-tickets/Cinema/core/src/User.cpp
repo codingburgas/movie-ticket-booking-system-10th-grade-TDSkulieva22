@@ -9,6 +9,7 @@
 #include "Filters.h"
 #include "Booking.h"
 
+//External handles for environment
 extern SQLHENV hEnv;
 extern SQLHDBC hDbc;
 
@@ -21,6 +22,8 @@ bool User::userExists(const wstring& username) {
 	if (hDbc == NULL) {
 		cout<<"Error!"<<endl;
 	}
+
+	//To count users with the given username
 	wstring query = L"SELECT COUNT(*) FROM Users WHERE Username = N'" + username + L"'";
 	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);
 	if (!(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)) {
@@ -29,6 +32,7 @@ bool User::userExists(const wstring& username) {
 	}
 
 	SQLINTEGER count = 0;
+	//Fetch the result- count
 	if (SQLFetch(hStmt) == SQL_SUCCESS) {
 		SQLGetData(hStmt, 1, SQL_C_SLONG, &count, 0, NULL);
 	}
@@ -55,11 +59,11 @@ void User::userRegisterPr(wstring& username, wstring& password) {
 	
 
 	bool valid = false;
-	while (!valid) {
+	while (!valid) { //Validation criteria
 		setColor(YELLOW);
 		cout << "    --> Enter password (Min 6 chars, 1 uppercase, 1 digit, 1 special): ";
 		resetColor();
-		inputPassword = getHiddenPassword();
+		inputPassword = getHiddenPassword(); //Read password without echoing input
 		valid = isValidPassword(inputPassword);
 	}
 
@@ -120,6 +124,7 @@ bool User::userLogin(const wstring& username, const wstring& password) {
 	SQLHSTMT hStmt;
 	SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
 
+	//Count users matching usernameand password
 	wstring query = L"SELECT COUNT(*) FROM Users WHERE Username = N'" + username + L"' AND Pass = N'" + password + L"'";
 	SQLRETURN ret = SQLExecDirectW(hStmt, (SQLWCHAR*)query.c_str(), SQL_NTS);
 
@@ -135,7 +140,7 @@ bool User::userLogin(const wstring& username, const wstring& password) {
 	}
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
-	return count > 0;
+	return count > 0;  //Return true if count > 0 (valid login)
 
 	system("pause");
 }
@@ -145,6 +150,7 @@ void User::userMainMenu(wstring username)
 	int menuSelected = 0;
 	bool menuRunning = true;
 
+	//List of options displayed to the user
 	vector<string> userOptions = {
 		"View our program",
 		"Select a seat",
@@ -159,7 +165,7 @@ void User::userMainMenu(wstring username)
 		cinemaCity();
 		options(userOptions, menuSelected, 3);
 
-		char key = _getch();
+		char key = _getch();  //Get keyboard input without waiting for enter
 
 		if (key == 72) { //Up
 			menuSelected = (menuSelected == 0) ? userOptions.size() - 1 : menuSelected - 1;
@@ -209,7 +215,7 @@ void User::userMainMenu(wstring username)
 			case 5:
 				return;
 			}
-			system("pause");
+			system("pause");    //Pause after action before refreshing menu
 		}
 	}
 }
@@ -263,5 +269,5 @@ void User::userOffers() {
 	}
 
 	dbManager.disconnect(); 
-	_getch();
+	_getch();  //Wait for key press before returning
 }

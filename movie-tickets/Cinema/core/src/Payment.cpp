@@ -31,14 +31,20 @@ void Payment::startPayment(wstring title, wstring city, wstring location, wstrin
 		resetColor();
 	}
 }
+
+//If a card number matches the format
 bool Payment::isValidCardNumber(const string& number) {
 	regex card_regex("^\\d{4} \\d{4} \\d{4} \\d{4}$");
 	return regex_match(number, card_regex);
 }
+
+//CVV to be exactly 3 digits
 bool Payment::isValidCVV(const string& cvv) {
 	regex cvv_regex("^\\d{3}$");
 	return regex_match(cvv, cvv_regex);
 }
+
+//MM/YY with correct month range 01-12
 bool Payment::isValidExpiry(const string& expiry) {
 	regex expiry_regex("^(0[1-9]|1[0-2])/\\d{2}$");
 	return regex_match(expiry, expiry_regex);
@@ -48,7 +54,7 @@ void Payment::proccessCashPayment(wstring movieTitle, wstring city, wstring loca
 	newLine(2);
 
 	srand(time(nullptr));
-	int reservationNumber = rand() % 1000000 + 1;
+	int reservationNumber = rand() % 1000000 + 1;  //Generate random reservation number
 
 	wcout << L"_______________________________________" << endl;
 
@@ -109,7 +115,7 @@ void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,w
 	string expiry;
 	string cvv;
 	
-
+	//Get hall type for the movie
 	const vector<wstring> hall = db.getMovieHall(programTableName, movieTitle,date);
 
 	setColor(LIGHT_GREEN);
@@ -142,7 +148,7 @@ void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,w
 	double hallPr;
 	string currentHall;
 
-
+	//Calculate base price
 	if (hall[0] == L"2D") {
 		hallPr = 5;
 		currentHall = "2D";
@@ -164,7 +170,7 @@ void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,w
 		currentHall = "VIP";
 	}
 
-
+	//Adjust price by seat row category
 	if (row >= 1 && row <= 4) {
 		hallPr += 1;
 	}
@@ -191,7 +197,7 @@ void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,w
 
 	
 	
-
+	//Validate card details
 	if (!isValidCardNumber(cardNumber) || !isValidExpiry(expiry) || !isValidCVV(cvv)) {
 		setColor(RED);
 		cout << "Payment failed due to invalid details.\n";
@@ -199,7 +205,7 @@ void Payment::processOnlinePayment(wstring programTableName,wstring movieTitle,w
 		return;
 	}
 
-
+	//Round amount to 2 decimals
 	double amount = hallPr;
 	amount = round(amount * 100) / 100.0;
 

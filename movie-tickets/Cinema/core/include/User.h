@@ -2,7 +2,6 @@
 #include "pch.h"
 
 
-
 class User {
 public:
 	static bool userExists(const wstring& username);
@@ -15,12 +14,4 @@ public:
 private:
 	static int currentUserId;
 };
-
-
-
-
-
-
-
-
 

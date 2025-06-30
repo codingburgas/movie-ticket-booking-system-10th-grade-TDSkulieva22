@@ -3,7 +3,7 @@
 
 struct OfferDetails {
     int offerId;
-    std::wstring title;
-    std::wstring description;
+    wstring title;
+    wstring description;
     bool isActive;
 };
