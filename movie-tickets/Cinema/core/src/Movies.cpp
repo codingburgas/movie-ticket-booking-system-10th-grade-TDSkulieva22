@@ -8,11 +8,10 @@
 #include "Colors.h"
 
 void addMovie() {
-    cin.ignore();
     system("cls");
     cinemaCity();
     newLine(3);
-
+    cin.ignore();
     //Gather movie details
     string title, genre, story, category, languages, actor, director;
     int duration;
@@ -34,37 +33,33 @@ void addMovie() {
     resetColor();
 
     cin >> duration;
+    cin.ignore();
 
     setColor(LIGHT_BLUE);
     cout << "    --> Enter Story: ";
     resetColor();
 
     getline(cin, story);
-    cin.ignore();
 
     setColor(LIGHT_BLUE);
     cout << "    --> Enter Category (B, D, C+, D+): ";
     resetColor();
     getline(cin, category);
-    cin.ignore();
 
     setColor(LIGHT_BLUE);
     cout << "    --> Enter Languages: ";
     resetColor();
     getline(cin, languages);
-    cin.ignore();
 
     setColor(LIGHT_BLUE);
     cout << "    --> Enter Main Actor: ";
     resetColor();
 
     getline(cin, actor);
-    cin.ignore();
 
     setColor(LIGHT_BLUE);
     cout << "    --> Enter Director: ";
     resetColor();
-    cin.ignore();
     getline(cin, director);
 
     //Convert string to wstring
