@@ -140,7 +140,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h" />
     <ClInclude Include="include\Admin.h" />
     <ClInclude Include="include\Booking.h" />
     <ClInclude Include="include\Colors.h" />
@@ -155,7 +154,6 @@
     <ClInclude Include="include\Seat.h" />
     <ClInclude Include="include\User.h" />
     <ClInclude Include="include\Validation.h" />
-    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Admin.cpp" />

@@ -22,7 +22,7 @@ bool Admin::adminLogin() {
 
     while (attempts < 3) {
         system("cls");
-        adminTitle(); // Use your existing adminTitle function
+        adminTitle();
         newLine(2);
 
         setColor(YELLOW);
@@ -35,7 +35,7 @@ bool Admin::adminLogin() {
         resetColor();
         password = getHiddenPassword(); 
 
-        if (checkAdminCredentials(username, password)) { // Use the private helper to verify
+        if (checkAdminCredentials(username, password)) { 
             setColor(LIGHT_GREEN);
             printCentered("Admin login successful!", 8);
             resetColor();

@@ -64,8 +64,8 @@ void addMovie() {
     setColor(LIGHT_BLUE);
     cout << "    --> Enter Director: ";
     resetColor();
-    getline(cin, director);
     cin.ignore();
+    getline(cin, director);
 
     //Convert string to wstring
     wstring Title = wstring(title.begin(), title.end());
